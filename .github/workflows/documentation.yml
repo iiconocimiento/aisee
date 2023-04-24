@@ -7,16 +7,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Clone repository
-      uses: actions/checkout@v2
-    - name: "Set up Python 3.11"
-        uses: actions/setup-python@v1
-        with:
-          python-version: '3.11'
-    - include: common_documentation-steps.yml
-    - uses: actions/upload-artifact@v2
-        with:
-          name: documentation
-          path: docs/build/html
-          retention-days: 30
+      - name: Clone repository
+        uses: actions/checkout@v2
+      - name: "Set up Python 3.11"
+          uses: actions/setup-python@v1
+          with:
+            python-version: '3.11'
+      - include: common_documentation-steps.yml
+      - uses: actions/upload-artifact@v2
+          with:
+            name: documentation
+            path: docs/build/html
+            retention-days: 30
         

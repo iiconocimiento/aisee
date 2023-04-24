@@ -9,30 +9,30 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Clone repository
-      uses: actions/checkout@v2
-    - name: Set env
-      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-    - name: "Set up Python 3.11"
-        uses: actions/setup-python@v1
-        with:
-          python-version: '3.11'
-    - include: common_documentation-steps.yml
-    - name: Switch to gh-pages branch
-      run: git checkout gh-pages
-    - name: Copy documentation to the stable folder of gh-pages
-      run: |
-        rm -rf stable/
-        mkdir stable/
-        cp -r docs/build/html/* stable
-    - name: Copy documentation to the tag folder of gh-pages
-      run: |
-        mkdir ${{ env.RELEASE_VERSION }}/
-        cp -r docs/build/html/* ${{ env.RELEASE_VERSION }}
-    - name: Commit and push dev documentation
-      run: |
-        git add stable/*
-        git add ${{ env.RELEASE_VERSION }}/*
-        git commit -m "Update documentation"
-        git push
-        
+      - name: Clone repository
+        uses: actions/checkout@v2
+      - name: Set env
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: "Set up Python 3.11"
+          uses: actions/setup-python@v1
+          with:
+            python-version: '3.11'
+      - include: common_documentation-steps.yml
+      - name: Switch to gh-pages branch
+        run: git checkout gh-pages
+      - name: Copy documentation to the stable folder of gh-pages
+        run: |
+          rm -rf stable/
+          mkdir stable/
+          cp -r docs/build/html/* stable
+      - name: Copy documentation to the tag folder of gh-pages
+        run: |
+          mkdir ${{ env.RELEASE_VERSION }}/
+          cp -r docs/build/html/* ${{ env.RELEASE_VERSION }}
+      - name: Commit and push dev documentation
+        run: |
+          git add stable/*
+          git add ${{ env.RELEASE_VERSION }}/*
+          git commit -m "Update documentation"
+          git push
+          
