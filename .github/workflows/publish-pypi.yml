@@ -1,0 +1,19 @@
+name: pypi
+
+on:
+  push:
+    tags:        
+      - "*.*.*"
+
+jobs:
+  publish_pypi:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build and publish to pypi
+        uses: JRubics/poetry-publish@v1.16
+        with:
+          python_version: "3.9"
+          ignore_dev_requirements: "yes"
+          pypi_token: ${{ secrets.PYPI_API_TOKEN }}
+          plugins: "poetry-dynamic-versioning-plugin"
