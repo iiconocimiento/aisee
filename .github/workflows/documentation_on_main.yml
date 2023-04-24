@@ -25,6 +25,10 @@ jobs:
           cd docs/
           make copy-examples
           make html
+      - name: List directories
+        run: ls
+      - name: List branches
+        run: git branch -a
       - name: Switch to gh-pages branch
         run: git checkout gh-pages
       - name: Copy documentation to the dev folder of gh-pages
