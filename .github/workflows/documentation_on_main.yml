@@ -10,9 +10,9 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v2
       - name: "Set up Python 3.11"
-          uses: actions/setup-python@v1
-          with:
-            python-version: '3.11'
+        uses: actions/setup-python@v1
+        with:
+          python-version: '3.11'
       - include: common_documentation-steps.yml
       - name: Switch to gh-pages branch
         run: git checkout gh-pages

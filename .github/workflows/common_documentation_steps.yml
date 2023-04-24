@@ -2,13 +2,16 @@ name: Common documentation steps
 
 on: push
 
-steps:
-  - name: Install sphinx and dependecies
-    run: pip install sphinx==6.2.0 nbsphinx==0.9.1 sphinx-design==0.4.1 pydata-sphinx-theme==0.13.3
-  - name: Install AISee package
-    run: pip install .
-  - name: Build latest documentation
-    run: |
-      cd docs/
-      make copy-examples
-      make html
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install sphinx and dependecies
+        run: pip install sphinx==6.2.0 nbsphinx==0.9.1 sphinx-design==0.4.1 pydata-sphinx-theme==0.13.3
+      - name: Install AISee package
+        run: pip install .
+      - name: Build latest documentation
+        run: |
+          cd docs/
+          make copy-examples
+          make html
