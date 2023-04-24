@@ -1,0 +1,634 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Contribute to AISee &#8212; aisee  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/design-tabs.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_development/development';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Getting Started" href="../_getting_started/getting_started.html" />
+    <link rel="prev" title="Multilabel Classification Problem" href="../_examples/multi_label_classification.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/aisee-logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/aisee-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_modules/modules.html">
+                        API reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_examples/examples.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
+                        Contribute to AISee
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_getting_started/getting_started.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_modules/modules.html">
+                        API reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_examples/examples.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
+                        Contribute to AISee
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_getting_started/getting_started.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Contribute to AISee</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="contribute-to-aisee">
+<span id="development"></span><h1>Contribute to AISee<a class="headerlink" href="#contribute-to-aisee" title="Permalink to this heading">#</a></h1>
+<p>Everyone is welcome to contribute, and we value everybody’s contribution. Code
+contributions are not the only way to help the community. Answering questions, helping
+others, and improving the documentation are also immensely valuable.</p>
+<p>It also helps us if you spread the word! Reference the library in blog posts
+about the awesome projects it made possible, shout out on Twitter every time it has
+helped you, or simply ⭐️ the repository to say thank you.</p>
+<p>However you choose to contribute, please be mindful and respect our
+<a class="reference external" href="https://github.com/iiconocimiento/aisee/blob/main/CODE_OF_CONDUCT.md">code of conduct</a>.</p>
+<p><strong>This guide was heavily inspired by the awesome</strong> 🤗 <a class="reference external" href="https://github.com/huggingface/transformers/blob/main/CONTRIBUTING.md">Transformers guide to contributing</a>.</p>
+<section id="ways-to-contribute">
+<h2>Ways to contribute<a class="headerlink" href="#ways-to-contribute" title="Permalink to this heading">#</a></h2>
+<p>There are several ways you can contribute to AISee:</p>
+<ul class="simple">
+<li><p>Fix outstanding issues with the existing code.</p></li>
+<li><p>Submit issues related to bugs or desired new features.</p></li>
+<li><p>Contribute to the examples or to the documentation.</p></li>
+</ul>
+</section>
+<section id="fixing-outstanding-issues">
+<h2>Fixing outstanding issues<a class="headerlink" href="#fixing-outstanding-issues" title="Permalink to this heading">#</a></h2>
+<p>If you notice an issue with the existing code and have a fix in mind,
+feel free to <a class="reference external" href="https://github.com/iiconocimiento/aisee/blob/main/CONTRIBUTING.md/#create-a-pull-request">start contributing</a>
+and open a Pull Request!</p>
+</section>
+<section id="submitting-a-bug-related-issue-or-feature-request">
+<h2>Submitting a bug-related issue or feature request<a class="headerlink" href="#submitting-a-bug-related-issue-or-feature-request" title="Permalink to this heading">#</a></h2>
+<p>Do your best to follow these guidelines when submitting a bug-related issue or a feature
+request. It will make it easier for us to come back to you quickly and with good
+feedback.</p>
+<section id="did-you-find-a-bug">
+<h3>Did you find a bug?<a class="headerlink" href="#did-you-find-a-bug" title="Permalink to this heading">#</a></h3>
+<p>Before you report an issue, we would really appreciate it if you could <strong>make sure the bug was not
+already reported</strong> (use the search bar on GitHub under Issues).</p>
+<p>Once you’ve confirmed the bug hasn’t already been reported, please include the following information
+in your issue so we can quickly resolve it:</p>
+<ul class="simple">
+<li><p>Your <strong>OS type and version</strong>, <strong>Python</strong> and <strong>PyTorch</strong> versions when applicable.</p></li>
+<li><p>A short, self-contained, code snippet that allows us to reproduce the bug in
+less than 30s.</p></li>
+<li><p>The <em>full</em> traceback if an exception is raised.</p></li>
+<li><p>Attach any other additional information, like screenshots, you think may help. Also explain what the expected behavior should be in your opinion.</p></li>
+</ul>
+</section>
+<section id="do-you-want-a-new-feature">
+<h3>Do you want a new feature?<a class="headerlink" href="#do-you-want-a-new-feature" title="Permalink to this heading">#</a></h3>
+<p>If there is a new feature you’d like to see in AISee, please open an issue and describe:</p>
+<ol class="arabic">
+<li><p>What is the <em>motivation</em> behind this feature? Is it related to a problem or frustration with the library? Is it a feature related to something you need for a project? Is it something you worked on and think it could benefit the community?</p>
+<p>Whatever it is, we’d love to hear about it!</p>
+</li>
+<li><p>Describe your requested feature in as much detail as possible. The more you can tell us about it, the better we’ll be able to help you.</p></li>
+<li><p>Provide a <em>code snippet</em> that demonstrates the features usage.</p></li>
+<li><p>If the feature is related to a paper, please include a link.</p></li>
+</ol>
+<p>If your issue is well written we’re already 80% of the way there by the time you create it.</p>
+</section>
+</section>
+<section id="do-you-want-to-add-documentation">
+<h2>Do you want to add documentation?<a class="headerlink" href="#do-you-want-to-add-documentation" title="Permalink to this heading">#</a></h2>
+<p>We’re always looking for improvements to the documentation that make it more clear and accurate. Please
+let us know how the documentation can be improved such as typos and any content that is missing, unclear
+or inaccurate. We’ll be happy to make the changes or help you make a contribution if you’re interested!</p>
+</section>
+<section id="create-a-pull-request">
+<h2>Create a Pull Request<a class="headerlink" href="#create-a-pull-request" title="Permalink to this heading">#</a></h2>
+<p>Before writing any code, we strongly advise you to search through the existing PRs or
+issues to make sure nobody is already working on the same thing. If you are
+unsure, it is always a good idea to open an issue to get some feedback.</p>
+<p>Follow the steps below to start contributing:</p>
+<ol class="arabic">
+<li><p>Fork the <a class="reference external" href="https://github.com/iiconocimiento/aisee">repository</a> by
+clicking on the <a class="reference external" href="https://github.com/iiconocimiento/aisee/fork">Fork</a> button on the repository’s page. This creates a copy of the code
+under your GitHub user account.</p></li>
+<li><p>Clone your fork to your local disk, and add the base repository as a remote:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone git@github.com:&lt;your Github handle&gt;/aisee.git</span>
+<span class="go">cd aisee</span>
+<span class="go">git remote add upstream https://github.com/iiconocimiento/aisee.git</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Create a new branch to hold your development changes:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git checkout -b a-descriptive-name-for-my-changes</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>🚨 <strong>Do not</strong> work on the <cite>main</cite> branch!</p>
+</li>
+<li><p>Develop the features on your branch.</p>
+<p>As you work on your code, you should make sure the test suite
+passes. Run the tests impacted by your changes like this:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pytest tests/&lt;TEST_TO_RUN&gt;.py</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>AISee relies on <cite>black</cite> and <cite>ruff</cite> to format its source code
+consistently. After you make changes, apply automatic style corrections and code verifications
+that can’t be automated in one go.</p>
+<p>If you’re modifying documents under <cite>doc</cite> directory, make sure the documentation can still be built.
+This check will also run in the CI when you open a pull request.</p>
+<p>Once you’re happy with your changes, add changed files with <cite>git add</cite> and
+record your changes locally with <cite>git commit</cite>:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git add modified_file.py</span>
+<span class="go">git commit</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Please remember to write <a class="reference external" href="https://chris.beams.io/posts/git-commit/">good commit messages</a> to clearly
+communicate the changes you made!</p>
+<p>To keep your copy of the code up to date with the original
+repository, rebase your branch on <cite>upstream/branch</cite> <em>before</em> you open a pull request or if requested by a maintainer:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git fetch upstream</span>
+<span class="go">git rebase upstream/main</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Push your changes to your branch:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git push -u origin a-descriptive-name-for-my-changes</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>If you’ve already opened a pull request, you’ll need to force push with the <cite>–force</cite> flag.
+Otherwise, if the pull request hasn’t been opened yet, you can just push your changes normally.</p>
+</li>
+<li><p>Now you can go to your fork of the repository on GitHub and click on <strong>Pull request</strong> to open a pull request. When you’re ready, you can send your changes to the project maintainers for review.</p></li>
+<li><p>It’s ok if maintainers request changes, it happens to our core contributors
+too! So everyone can see the changes in the pull request, work in your local
+branch and push the changes to your fork. They will automatically appear in
+the pull request.</p></li>
+</ol>
+<section id="pull-request-checklist">
+<h3>Pull request checklist<a class="headerlink" href="#pull-request-checklist" title="Permalink to this heading">#</a></h3>
+<p>☐ The pull request title should summarize your contribution.</p>
+<p>☐ If your pull request addresses an issue, please mention the issue number in the pull
+request description to make sure they are linked (and people viewing the issue know you
+are working on it).</p>
+<p>☐ To indicate a work in progress please prefix the title with <cite>[WIP]</cite> or <cite>[DRAFT]</cite>. These are
+useful to avoid duplicated work, and to differentiate it from PRs ready to be merged.</p>
+<p>☐ Make sure existing tests pass.</p>
+<p>☐ If adding a new feature, also add tests for it.</p>
+<p>☐ All public methods must have informative docstrings in <a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html#overview">NumPy format</a>.</p>
+</section>
+<section id="tests">
+<h3>Tests<a class="headerlink" href="#tests" title="Permalink to this heading">#</a></h3>
+<p>An extensive test suite is included to test the library behavior and several examples. Library tests can be found in
+the <a class="reference external" href="https://github.com/iiconocimiento/aisee/tree/main/tests">tests</a> folder.</p>
+<p>To run the tests you can run the following commands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install poetry</span>
+<span class="go">poetry install --with dev</span>
+<span class="go">poetry run pytest</span>
+</pre></div>
+</div>
+<p>We use <a class="reference external" href="https://beta.ruff.rs/docs/">ruff</a> to run the code style checks, in order to run them, execute the following commmands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install poetry</span>
+<span class="go">poetry install --with dev</span>
+<span class="go">poetry run ruff .</span>
+</pre></div>
+</div>
+<p>When you create a PR, the github workflow tests will also run.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../_examples/multi_label_classification.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Multilabel Classification Problem</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../_getting_started/getting_started.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Getting Started</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ways-to-contribute">Ways to contribute</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fixing-outstanding-issues">Fixing outstanding issues</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submitting-a-bug-related-issue-or-feature-request">Submitting a bug-related issue or feature request</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#did-you-find-a-bug">Did you find a bug?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#do-you-want-a-new-feature">Do you want a new feature?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#do-you-want-to-add-documentation">Do you want to add documentation?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-pull-request">Create a Pull Request</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pull-request-checklist">Pull request checklist</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests">Tests</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="../_sources/_development/development.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2023, Instituto de Ingeniería del Conocimiento.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

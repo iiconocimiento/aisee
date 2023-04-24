@@ -1,0 +1,748 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Data-Loaders &#8212; aisee  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/design-tabs.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_examples/data_loader';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Multiclass Classification Problem" href="multi_class_classification.html" />
+    <link rel="prev" title="Examples" href="examples.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/aisee-logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/aisee-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_modules/modules.html">
+                        API reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="examples.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_development/development.html">
+                        Contribute to AISee
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_getting_started/getting_started.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_modules/modules.html">
+                        API reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="examples.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_development/development.html">
+                        Contribute to AISee
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_getting_started/getting_started.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Data-Loaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_class_classification.html">Multiclass Classification Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_label_classification.html">Multilabel Classification Problem</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="examples.html" class="nav-link">Examples</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Data-Loaders</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="Data-Loaders">
+<h1>Data-Loaders<a class="headerlink" href="#Data-Loaders" title="Permalink to this heading">#</a></h1>
+<p>There are three ways to upload images using AISee:</p>
+<ul class="simple">
+<li><p><strong>DatasetFromFolder</strong>: This class is used to create a dataset from a directory where each subdirectory represents a class and contains images of that class. The class also supports custom label-to-index mapping through the class_to_idx parameter. When retrieving an item from the dataset, it returns the image, the label, and the image path.</p></li>
+<li><p><strong>DatasetFromDataFrame</strong>: This class is used to create a dataset from a pandas DataFrame. The DataFrame must contain a “path” column with the full path of the images, and optionally a “label” column for single-label problems or multiple class columns for multi-label problems. The class also supports custom label-to-index mapping through the class_to_idx parameter. When retrieving an item from the dataset, it returns the image, the label, and the image path.</p></li>
+<li><p><strong>DatasetFromSingleImage</strong>: This class is used to create a dataset from a single image. The image path is passed as an argument to the constructor. When retrieving an item from the dataset, it returns the image, a NaN value (np.nan) for the label, and the image path.</p></li>
+</ul>
+<p>Let’s try all these ways throughout the notebook</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Import necessary libraries
+import os
+import zipfile
+
+import matplotlib.pyplot as plt
+import pandas as pd
+import requests
+from aisee import (DatasetFromDataFrame, DatasetFromFolder,
+                   DatasetFromSingleImage)
+from PIL import Image
+from torchvision import transforms
+</pre></div>
+</div>
+</div>
+<p>In this section of code, we are <strong>downloading and extracting a dataset of microorganism images</strong> from a .zip file hosted on <strong>Hugging Face</strong>.</p>
+<p>First, the current working directory of the notebook is obtained and stored in the variable <code class="docutils literal notranslate"><span class="pre">notebook_dir</span></code>.</p>
+<p>Next, the URL of the .zip file is defined and stored in the <code class="docutils literal notranslate"><span class="pre">url</span></code> variable.</p>
+<p>The dataset is then downloaded using the <code class="docutils literal notranslate"><span class="pre">requests</span></code> library, and the content of the response is written to a file named <code class="docutils literal notranslate"><span class="pre">data.zip</span></code> in the current working directory.</p>
+<p>Finally, the <code class="docutils literal notranslate"><span class="pre">zipfile</span></code> library is utilized to extract the contents of the downloaded .zip file into the current working directory, after which the .zip file is closed.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Get the current working directory of the notebook
+notebook_dir = os.getcwd()
+
+# Define the URL to download the dataset
+url = &#39;https://huggingface.co/IIC/aisee_resources/resolve/main/microorganisms.zip&#39;
+
+response = requests.get(url)
+
+# Download the dataset from the URL and save it as &quot;data.zip&quot; in the current working directory
+with open(&#39;data.zip&#39;, &#39;wb&#39;) as file:
+    file.write(response.content)
+
+# Extract the contents of the downloaded zip file into the current working directory
+archivo_zip = zipfile.ZipFile(os.path.join(notebook_dir, &#39;data.zip&#39;))
+archivo_zip.extractall(os.path.join(notebook_dir))
+archivo_zip.close()
+</pre></div>
+</div>
+</div>
+<p>Now we have this folder structure:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>└── Micro_Organism
+    └── Amoeba
+    └── Euglena
+    └── Hydra
+    └── Paramecium
+    └── Rod_bacteria
+    └── Spherical_bacteria
+    └── Spiral_bacteria
+    └── Yeast
+</pre></div>
+</div>
+<section id="DatasetFromFolder">
+<h2>DatasetFromFolder<a class="headerlink" href="#DatasetFromFolder" title="Permalink to this heading">#</a></h2>
+<p>You can use the <strong>DatasetFromFolder</strong> class to load the images and labels from this directory structure as follows:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define the image transformations
+transform = transforms.Compose([
+    transforms.Resize(256),
+    transforms.CenterCrop(224),
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+])
+
+# Define the class_to_idx dictionary for the microorganism dataset
+class_to_idx = {
+    &quot;Amoeba&quot;: 0,
+    &quot;Euglena&quot;: 1,
+    &quot;Hydra&quot;: 2,
+    &quot;Paramecium&quot;: 3,
+    &quot;Rod_bacteria&quot;: 4,
+    &quot;Spherical_bacteria&quot;: 5,
+    &quot;Spiral_bacteria&quot;: 6,
+    &quot;Yeast&quot;: 7
+}
+
+# Create the dataset
+dataset = DatasetFromFolder(&quot;micro_organism&quot;, transform=transform, class_to_idx=class_to_idx)
+</pre></div>
+</div>
+</div>
+<p>The <strong>dataset</strong> variable now contains the images and labels from the subdirectories like Amoeba, Euglena, Hydra, etc.</p>
+<p>The <strong>transform</strong> variable is an instance of torchvision.transforms.Compose. It is a sequence of image transformations that are applied to the images before they are loaded into the dataset.</p>
+<p>The <strong>Compose</strong> class is a convenient way to chain multiple image transformations together. It takes a list of transformation classes as input and applies them sequentially to the input image. This is particularly useful when preprocessing images or making data-aumentation for training or testing with a neural network. To see all posible transformations look at: <a class="reference external" href="https://pytorch.org/vision/stable/transforms.html">https://pytorch.org/vision/stable/transforms.html</a></p>
+<p>Let’s see some images:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>f,ax = plt.subplots(1,5, figsize=(15, 3))
+f.subplots_adjust(wspace=0.7)
+for i, (img, label, path) in enumerate(dataset):
+    if i &gt;= 5:
+        break
+    ax[i].imshow(Image.open(path))
+    ax[i].axis(&#39;off&#39;)
+    ax[i].set_title(label)
+plt.show()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/_examples_data_loader_10_0.png" src="../_images/_examples_data_loader_10_0.png" />
+</div>
+</div>
+</section>
+<section id="DatasetFromDataFrame">
+<h2>DatasetFromDataFrame<a class="headerlink" href="#DatasetFromDataFrame" title="Permalink to this heading">#</a></h2>
+<p>To create a dataframe from this folder structure we can use this code:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>micro_organism_folder = &quot;micro_organism&quot;
+
+# Define the list of class names
+classes = [folder_name for folder_name in os.listdir(micro_organism_folder)]
+
+# Initialize an empty list to store the data
+data = []
+
+# Iterate through each class folder and gather image paths and labels
+for label in classes:
+    class_folder = os.path.join(micro_organism_folder, label)
+
+    for img_name in os.listdir(class_folder):
+        img_path = os.path.join(class_folder, img_name)
+        data.append([img_path, label])
+
+# Create a pandas DataFrame from the data list
+df = pd.DataFrame(data, columns=[&quot;path&quot;, &quot;label&quot;])
+print(df.head())
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+                                      path       label
+0  micro_organism/Paramecium/Image_144.jpg  Paramecium
+1  micro_organism/Paramecium/Image_145.jpg  Paramecium
+2   micro_organism/Paramecium/Image_60.jpg  Paramecium
+3   micro_organism/Paramecium/Image_95.jpg  Paramecium
+4    micro_organism/Paramecium/Image_2.jpg  Paramecium
+</pre></div></div>
+</div>
+<p>Now we can use DatasetFromDataFrame with the dataframe that we have just created:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define the image transformations
+transformations = transforms.Compose([
+    transforms.Resize(256),
+    transforms.CenterCrop(224),
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+])
+
+# Define the class_to_idx dictionary for the microorganism dataset
+class_to_idx = {
+    &quot;Amoeba&quot;: 0,
+    &quot;Euglena&quot;: 1,
+    &quot;Hydra&quot;: 2,
+    &quot;Paramecium&quot;: 3,
+    &quot;Rod_bacteria&quot;: 4,
+    &quot;Spherical_bacteria&quot;: 5,
+    &quot;Spiral_bacteria&quot;: 6,
+    &quot;Yeast&quot;: 7,
+}
+
+# Create the dataset
+dataset = DatasetFromDataFrame(data=df, task=&quot;single_label&quot;, transform=transformations, class_to_idx=class_to_idx)
+</pre></div>
+</div>
+</div>
+<p>The <strong>dataset</strong> variable now contains the images and labels from the subdirectories like Amoeba, Euglena, Hydra, etc.</p>
+<p>The <strong>transform</strong> variable is an instance of torchvision.transforms.Compose. It is a sequence of image transformations that are applied to the images before they are loaded into the dataset.</p>
+<p>The <strong>Compose</strong> class is a convenient way to chain multiple image transformations together. It takes a list of transformation classes as input and applies them sequentially to the input image. This is particularly useful when preprocessing images or making data-aumentation for training or testing with a neural network. To see all posible transformations look at: <a class="reference external" href="https://pytorch.org/vision/stable/transforms.html">https://pytorch.org/vision/stable/transforms.html</a></p>
+<p>Let’s see some images</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>f,ax = plt.subplots(1,5, figsize=(15, 3))
+f.subplots_adjust(wspace=0.7)
+for i, (img, label, path) in enumerate(dataset):
+    if i &gt;= 5:
+        break
+    ax[i].imshow(Image.open(path))
+    ax[i].axis(&#39;off&#39;)
+    ax[i].set_title(label)
+plt.show()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/_examples_data_loader_17_0.png" src="../_images/_examples_data_loader_17_0.png" />
+</div>
+</div>
+</section>
+<section id="DatasetFromSingleImage">
+<h2>DatasetFromSingleImage<a class="headerlink" href="#DatasetFromSingleImage" title="Permalink to this heading">#</a></h2>
+<p>This class is useful if we only want to load an image for example to make inference.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#Path to single image
+image_path = &quot;micro_organism/Amoeba/Image_22.jpg&quot;
+
+# Define the image transformations
+transformations = transforms.Compose([
+    transforms.Resize(256),
+    transforms.CenterCrop(224),
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+])
+
+# Create the dataset
+single_image_dataset = DatasetFromSingleImage(data=image_path, transform=transformations)
+
+image, label, path = single_image_dataset[0]
+
+#Show image
+plt.imshow(Image.open(path))
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.image.AxesImage at 0x7fafe36cc880&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/_examples_data_loader_20_1.png" src="../_images/_examples_data_loader_20_1.png" />
+</div>
+</div>
+<p>Now you have a dataset object <strong>single_image_dataset</strong> that loads the specified image, applies the transformations, and allows you to access the transformed image, the (non-existent) label, and the image path. This dataset object can be used with a pre-trained model to obtain predictions for the single image.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="examples.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Examples</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="multi_class_classification.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Multiclass Classification Problem</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#DatasetFromFolder">DatasetFromFolder</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#DatasetFromDataFrame">DatasetFromDataFrame</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#DatasetFromSingleImage">DatasetFromSingleImage</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="../_sources/_examples/data_loader.ipynb.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2023, Instituto de Ingeniería del Conocimiento.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
