@@ -5,9 +5,9 @@ description = "aisee is a Python package for image classification using PyTorch 
 authors = ["IIC"]
 license = "MIT"
 readme = "README.md"
-homepage = "https://aisee.readthedocs.io"
+homepage = "https://iiconocimiento.github.io/aisee/stable/"
 repository = "https://github.com/iiconocimiento/aisee"
-documentation = "https://aisee.readthedocs.io"
+documentation = "https://iiconocimiento.github.io/aisee/stable/"
 keywords=["aisee", "computer vision", "vision", "timm", "pytorch"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",

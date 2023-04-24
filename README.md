@@ -55,15 +55,15 @@ pip install aisee
 
 ## Getting started
 
-- Visit [AISee Getting started](https://aisee.readthedocs.io/getting_started/) to get an overview of how AISee works.
+- Visit [AISee Getting started](https://iiconocimiento.github.io/aisee/stable/_getting_started/getting_started.html) to get an overview of how AISee works.
 
-- Explore [AISee Documentation](https://aisee.readthedocs.io/) page for a detailed guide and comprehensive API reference.
+- Explore [AISee Documentation](https://iiconocimiento.github.io/aisee/stable/) page for a detailed guide and comprehensive API reference.
 
-- Check out [AISee Examples](https://aisee.readthedocs.io/examples/) for Jupyter Notebook examples and tutorials, showcasing how to use AISee effectively in various scenarios.
+- Check out [AISee Examples](https://iiconocimiento.github.io/aisee/stable/_examples/examples.html) for Jupyter Notebook examples and tutorials, showcasing how to use AISee effectively in various scenarios.
 
 ## Contributing
 
-We value community contributions, and we encourage you to get involved in the continuous development of AISee. Please refer to [AISee Development](https://aisee.readthedocs.io/development) page for guidelines on how to contribute effectively.
+We value community contributions, and we encourage you to get involved in the continuous development of AISee. Please refer to [AISee Development](https://iiconocimiento.github.io/aisee/stable/_development/development.html) page for guidelines on how to contribute effectively.
 
 We also appreciate your feedback which helps us develop a robust and efficient solution for computer vision tasks. Together, let's make AISee the go-to library for AI practitioners and enthusiasts alike.
 
