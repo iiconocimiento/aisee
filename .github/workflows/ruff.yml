@@ -1,0 +1,33 @@
+name: ruff
+
+on:
+  - pull_request
+
+jobs:
+  ruff_pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+      - name: Install dependencies
+        run: pip install ruff requests
+      - name: annotate_pr_with_ruff
+        uses: EnriqueSoria/annotate_pr_with_ruff@c226a0b09f7e8ea7f148f29c129f89399b37f03d
+
+  ruff_checks: # Just to keep a log of all failures
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+      - name: Install dependencies
+        run: |
+          pip install poetry
+          poetry install --with dev
+      - name: Run ruff
+        run: poetry run ruff .

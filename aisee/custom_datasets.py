@@ -51,7 +51,7 @@ class DatasetFromFolder(datasets.ImageFolder):
 
     def __init__(
         self,
-        data: str,
+        data,
         transform: transforms.Compose = None,
         class_to_idx: dict[str, int] = None,
     ) -> None:
