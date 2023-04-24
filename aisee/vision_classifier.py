@@ -400,7 +400,7 @@ class VisionClassifier:
         if isinstance(data, pd.Series):
             data = data.to_frame()
 
-        elif isinstance(data, pd.DataFrame):
+        if isinstance(data, pd.DataFrame):
             image_dataset = DatasetFromDataFrame(
                 data,
                 self.task,
