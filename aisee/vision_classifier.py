@@ -400,14 +400,14 @@ class VisionClassifier:
         if isinstance(data, pd.Series):
             data = data.to_frame()
 
-        if isinstance(data, pd.DataFrame):
+        elif isinstance(data, pd.DataFrame):
             image_dataset = DatasetFromDataFrame(
                 data,
                 self.task,
                 data_transform,
                 self.class_to_idx,
             )
-        elif isinstance(data, (str, Path)):
+        elif isinstance(data, (str, Path)) & Path(data).exists():
             if Path(data).is_file():
                 image_dataset = DatasetFromSingleImage(data, transform=data_transform)
             elif Path(data).is_dir():
