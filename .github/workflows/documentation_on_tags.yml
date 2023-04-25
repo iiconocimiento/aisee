@@ -30,7 +30,7 @@ jobs:
         run: |
           cd docs/
           make copy-examples
-          make html
+          make html-poetry
       - name: Switch to gh-pages branch
         run: git checkout gh-pages
       - name: Copy documentation to the stable folder of gh-pages

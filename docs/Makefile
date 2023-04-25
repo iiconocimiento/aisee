@@ -26,5 +26,8 @@ copy-examples:
 	@echo "Copying examples..."
 	@cp ../notebooks/*.ipynb $(SOURCEDIR)/_examples/
 
+html-poetry:
+	@poetry run $(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+
 %: Makefile
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)

@@ -28,7 +28,7 @@ jobs:
         run: |
           cd docs/
           make copy-examples
-          make html
+          make html-poetry
       - name: List directories
         run: ls
       - name: List branches
