@@ -3,7 +3,7 @@ name: Build stable documentation
 on:
   push:
     tags:
-      - '*'
+      - '*.*.*'
 
 jobs:
   build:
@@ -48,6 +48,6 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add stable/*
           git add ${{ env.RELEASE_VERSION }}/*
-          git commit -m "Update documentation"
+          git commit -m "Add ${{ env.RELEASE_VERSION }} documentation"
           git push
           

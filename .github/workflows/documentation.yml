@@ -1,7 +1,9 @@
 name: Build documentation for testing
 
 on:
-  - push
+  push:
+    branches-ignore:
+      - main
 
 jobs:
   build:
