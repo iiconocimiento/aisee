@@ -38,6 +38,12 @@ pytest-cov = "3.0.0"
 coverage = {extras = ["toml"], version ="6.5.0"}
 pytest-ruff = "0.0.5"
 
+[tool.poetry.group.docs.dependencies]
+sphinx = "6.2.0"
+nbsphinx = "0.9.1"
+sphinx-design = "0.4.1"
+pydata-sphinx-theme = "0.13.3"
+
 [build-system]
 requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
 build-backend = "poetry_dynamic_versioning.backend"
