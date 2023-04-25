@@ -1,0 +1,50 @@
+name: Build dev documentation
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: "Set up Python 3.11"
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: "Install pandoc"
+        run: |
+          sudo apt-get install -y pandoc
+      - name: Install AISee package and dependecies
+        run: |
+          pip install poetry
+          poetry install --with docs
+      - name: Build latest documentation
+        run: |
+          cd docs/
+          make copy-examples
+          make html-poetry
+      - name: List directories
+        run: ls
+      - name: List branches
+        run: git branch -a
+      - name: Switch to gh-pages branch
+        run: git checkout gh-pages
+      - name: Copy documentation to the dev folder of gh-pages
+        run: |
+          rm -rf dev/
+          mkdir dev/
+          cp -r docs/build/html/* dev
+      - name: Commit and push dev documentation
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add dev/*
+          git commit -m "Update dev documentation"
+          git push
+          

@@ -1,0 +1,35 @@
+name: Build documentation for testing
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
+      - name: "Set up Python 3.11"
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: "Install pandoc"
+        run: |
+          sudo apt-get install -y pandoc
+      - name: Install AISee package and dependecies
+        run: |
+          pip install poetry
+          poetry install --with docs
+      - name: Build latest documentation
+        run: |
+          cd docs/
+          make copy-examples
+          make html-poetry
+      - uses: actions/upload-artifact@v3
+        with:
+          name: documentation
+          path: docs/build/html
+          retention-days: 30
+        
