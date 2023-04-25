@@ -18,10 +18,10 @@ jobs:
       - name: "Install pandoc"
         run: |
           sudo apt-get install -y pandoc
-      - name: Install sphinx and dependecies
-        run: pip install sphinx==6.2.0 nbsphinx==0.9.1 sphinx-design==0.4.1 pydata-sphinx-theme==0.13.3
-      - name: Install AISee package
-        run: pip install .
+      - name: Install AISee package and dependecies
+        run: |
+          pip install poetry
+          poetry install --with docs
       - name: Build latest documentation
         run: |
           cd docs/
