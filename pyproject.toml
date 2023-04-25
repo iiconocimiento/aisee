@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "aisee"
-version = "0.0.1"
+version = "0.0.0"
 description = "aisee is a Python package for image classification using PyTorch and timm created by Instituto de Ingeniería del Conocimiento"
 authors = ["IIC"]
 license = "MIT"
 readme = "README.md"
-homepage = "https://iiconocimiento.github.io/aisee/stable/"
+homepage = "https://iiconocimiento.github.io/aisee"
 repository = "https://github.com/iiconocimiento/aisee"
-documentation = "https://iiconocimiento.github.io/aisee/stable/"
+documentation = "https://iiconocimiento.github.io/aisee"
 keywords=["aisee", "computer vision", "vision", "timm", "pytorch"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -39,8 +39,14 @@ coverage = {extras = ["toml"], version ="6.5.0"}
 pytest-ruff = "0.0.5"
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
+build-backend = "poetry_dynamic_versioning.backend"
+
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
+style = "semver"
+format = "{branch}"
 
 [tool.pytest.ini_options]
 addopts = [
