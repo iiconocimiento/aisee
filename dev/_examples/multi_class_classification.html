@@ -299,6 +299,7 @@ document.write(`
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="data_loader.html">Data-Loaders</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Multiclass Classification Problem</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="multi_label_classification.html">Multilabel Classification Problem</a></li>
 </ul>
 </div>
@@ -359,6 +360,26 @@ document.write(`
                   
   <section id="Multiclass-Classification-Problem">
 <h1>Multiclass Classification Problem<a class="headerlink" href="#Multiclass-Classification-Problem" title="Permalink to this heading">#</a></h1>
+</section>
+<section id="Check-GPU">
+<h1>Check GPU<a class="headerlink" href="#Check-GPU" title="Permalink to this heading">#</a></h1>
+<p>We strongly recommend the use of GPU for training. If you are on Google Colab, go to change runtime type to GPU on the top menu.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>!nvidia-smi
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>!pip install aisee matplotlib requests split-folders
+</pre></div>
+</div>
+</div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -476,7 +497,7 @@ plt.show()
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/_examples_multi_class_classification_8_0.png" src="../_images/_examples_multi_class_classification_8_0.png" />
+<img alt="../_images/_examples_multi_class_classification_11_0.png" src="../_images/_examples_multi_class_classification_11_0.png" />
 </div>
 </div>
 </section>
@@ -671,7 +692,7 @@ plt.imshow(Image.open(&#39;data/test/Amoeba/Image_23.jpg&#39;))
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/_examples_multi_class_classification_21_2.png" src="../_images/_examples_multi_class_classification_21_2.png" />
+<img alt="../_images/_examples_multi_class_classification_24_2.png" src="../_images/_examples_multi_class_classification_24_2.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -759,6 +780,8 @@ The label is: Amoeba
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Multiclass Classification Problem</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#Check-GPU">Check GPU</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Get-the-data">Get the data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#VisionClassifier-Instance">VisionClassifier Instance</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Trainer-Instance">Trainer Instance</a></li>
@@ -774,6 +797,9 @@ The label is: Amoeba
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Load-model-with-custom-weights">Load model with custom weights</a></li>
 </ul>
+</li>
+</ul>
+
   </nav></div>
 
   <div class="sidebar-secondary-item">
