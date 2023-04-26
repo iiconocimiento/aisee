@@ -42,12 +42,14 @@ jobs:
         run: |
           mkdir ${{ env.RELEASE_VERSION }}/
           cp -r docs/build/html/* ${{ env.RELEASE_VERSION }}
-      - name: Commit and push dev documentation
+      - name: Add username and user email
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+      - name: Add dev directory
+        run: |
           git add stable/*
           git add ${{ env.RELEASE_VERSION }}/*
-          git commit -m "Add ${{ env.RELEASE_VERSION }} documentation"
-          git push
+      - name: Commit and push documentation
+        run: (git commit -m "Add ${{ env.RELEASE_VERSION }} documentation" && git push) || echo "Nothing to commit"
           
