@@ -407,7 +407,7 @@ class VisionClassifier:
                 data_transform,
                 self.class_to_idx,
             )
-        elif isinstance(data, (str, Path)):
+        elif isinstance(data, (str, Path)) and Path(data).exists():
             if Path(data).is_file():
                 image_dataset = DatasetFromSingleImage(data, transform=data_transform)
             elif Path(data).is_dir():
