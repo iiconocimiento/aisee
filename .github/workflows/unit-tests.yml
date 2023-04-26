@@ -10,6 +10,9 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         python-version: ['3.9', '3.10', '3.11']
+    env:
+      OS: ${{ matrix.os }}
+      PYTHON: ${{ matrix.python-version }}
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
@@ -27,6 +30,17 @@ jobs:
           name: coverage-report_${{ matrix.python-version }}
           path: .coverage
           retention-days: 30
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: .
+          env_vars: OS,PYTHON
+          fail_ci_if_error: true
+          files: .coverage
+          flags: unit_tests
+          name: codecov-aisee
+          verbose: true
 
   ruff:
     runs-on: ubuntu-latest
