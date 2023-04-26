@@ -9,13 +9,15 @@ jobs:
   publish_pypi:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Clone the repo
+        uses: actions/checkout@v3
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v4
         with:
-          fetch-depth: 0
-      - name: Build and publish to pypi
-        uses: JRubics/poetry-publish@v1.16
-        with:
-          python_version: "3.9"
-          ignore_dev_requirements: "yes"
-          pypi_token: ${{ secrets.PYPI_API_TOKEN }}
-          plugins: "poetry-dynamic-versioning-plugin"
+          python-version: "3.9"
+      - name: Publish to Pypi
+        run: |
+          echo -e "\n\n__version__ = \"$GITHUB_REF_NAME\"" >> aisee/__init__.py
+          pip install poetry
+          poetry version $GITHUB_REF_NAME
+          poetry publish --build --username __token__ --password ${{ secrets.PYPI_API_TOKEN }}
