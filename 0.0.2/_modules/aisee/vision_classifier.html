@@ -1,0 +1,1012 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>aisee.vision_classifier &#8212; aisee  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/aisee/vision_classifier';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/aisee-logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/aisee-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../modules.html">
+                        API reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../_examples/examples.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../_development/development.html">
+                        Contribute to AISee
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../_getting_started/getting_started.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../modules.html">
+                        API reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../_examples/examples.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../_development/development.html">
+                        Contribute to AISee
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../_getting_started/getting_started.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">aisee.vision_classifier</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <h1>Source code for aisee.vision_classifier</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">operator</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">timm</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">transforms</span>
+
+<span class="kn">from</span> <span class="nn">.custom_datasets</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DatasetFromDataFrame</span><span class="p">,</span>
+    <span class="n">DatasetFromFolder</span><span class="p">,</span>
+    <span class="n">DatasetFromSingleImage</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
+<span class="n">TM</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;TM&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="VisionClassifier"><a class="viewcode-back" href="../aisee.html#aisee.vision_classifier.VisionClassifier">[docs]</a><span class="k">class</span> <span class="nc">VisionClassifier</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Instantiating and predicting with a computer vision model from timm library.</span>
+
+<span class="sd">    The VisionClassifier class allows loading and utilizing neural networks from</span>
+<span class="sd">    timm library. The class provides methods for loading models with pre-trained</span>
+<span class="sd">    or non pre-trained weights, or instantiating models with custom weights.</span>
+<span class="sd">    It also allows training models with pre-trained weights (freezing some layers or training</span>
+<span class="sd">    the entire network) and from scratch. Predictions can be made through a path to an image,</span>
+<span class="sd">    a directory with images, or a dataframe. Additionally, it allows working with multiclass</span>
+<span class="sd">    and multilabel problems.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model_name : str</span>
+<span class="sd">        Name of the model that will be obtained from the timm library.</span>
+<span class="sd">    num_classes : int</span>
+<span class="sd">        Number of classes in the problem. The number of classes will</span>
+<span class="sd">        be the number of outputs of the neural net.</span>
+<span class="sd">    class_to_idx : dict[str, int], default=None</span>
+<span class="sd">        Equivalence between the label and the index of the neural net output. This parameter</span>
+<span class="sd">        is equivalent to `label2id` of the transformers library.</span>
+<span class="sd">        Example:</span>
+
+<span class="sd">            .. highlight:: python</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">                class_to_idx = {</span>
+<span class="sd">                    &quot;cat&quot;: 0,</span>
+<span class="sd">                    &quot;dog&quot;: 1</span>
+<span class="sd">                }</span>
+
+<span class="sd">                nerual_net_output = [0.2, 0.8]</span>
+
+<span class="sd">            - Cat has probability 0.2</span>
+<span class="sd">            - Dog has probability 0.8</span>
+
+<span class="sd">    weights_path : str, default=None</span>
+<span class="sd">        Directory where network weights are located. If value</span>
+<span class="sd">        is different from None, pretrained weigths from the timm</span>
+<span class="sd">        library will be ignored.</span>
+<span class="sd">    learning_method : str, default=&quot;freezed&quot;</span>
+<span class="sd">        Possible values: `from_scratch`, `freezed`, and `unfreezed`:</span>
+
+<span class="sd">        - `from_scratch`: The model will be trained from scratch, without</span>
+<span class="sd">        using any pre-trained weights contained in the timm library.</span>
+
+<span class="sd">        - `freezed`: The model will be trained using pre-trained weights</span>
+<span class="sd">        from the timm library. For this training, all layers of the network</span>
+<span class="sd">        will be frozen (weights will not be updated) except for the last layer,</span>
+<span class="sd">        and the extra layer if it is added with the extra_layer parameter.</span>
+
+<span class="sd">        - `unfreezed`: The model will be trained using pre-trained weights</span>
+<span class="sd">        from the timm library. In this case, all layers of the network will be</span>
+<span class="sd">        updated without exception.</span>
+
+<span class="sd">        Note that if custom weights are passed in the `custom_weights` parameter,</span>
+<span class="sd">        the network weights will be those, and the pre-trained weights from the</span>
+<span class="sd">        timm library will be ignored.</span>
+<span class="sd">    extra_layer : int, default=None</span>
+<span class="sd">        If value is different from None, a linear layer is added before the last layer</span>
+<span class="sd">        with `extra_layer` number of neurons. If None, this does nothing.</span>
+<span class="sd">    dropout : float, default=None</span>
+<span class="sd">        If dropout has a value different from None, dropout layer is added before the last layer. Otherwise this</span>
+<span class="sd">        does nothing.</span>
+<span class="sd">    task : str, default=&quot;single_label&quot;</span>
+<span class="sd">        Task to be resolved. Possible values:</span>
+
+<span class="sd">        - &quot;single_label&quot;</span>
+<span class="sd">        - &quot;multi_label&quot;</span>
+
+<span class="sd">    device : str, default=&quot;cpu&quot;</span>
+<span class="sd">        Device where the neural network will be running.</span>
+
+<span class="sd">        Example: &quot;cuda:1&quot;, &quot;cpu&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">num_classes</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">class_to_idx</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">weights_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">learning_method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;freezed&quot;</span><span class="p">,</span>
+        <span class="n">extra_layer</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dropout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">task</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;single_label&quot;</span><span class="p">,</span>
+        <span class="n">device</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;cpu&quot;</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_name</span> <span class="o">=</span> <span class="n">model_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weights_path</span> <span class="o">=</span> <span class="n">weights_path</span>
+
+        <span class="k">if</span> <span class="n">learning_method</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;from_scratch&quot;</span><span class="p">,</span> <span class="s2">&quot;freezed&quot;</span><span class="p">,</span> <span class="s2">&quot;unfreezed&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;&quot;&quot;learning_method must be [&#39;from_scratch&#39;, &#39;freezed, &#39;unfreezed&#39;]</span>
+<span class="s2">                not </span><span class="si">{</span><span class="n">learning_method</span><span class="si">}</span><span class="s2">&quot;&quot;&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">learning_method</span> <span class="o">=</span> <span class="n">learning_method</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">extra_layer</span> <span class="o">=</span> <span class="n">extra_layer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">dropout</span>
+
+        <span class="k">if</span> <span class="n">task</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;single_label&quot;</span><span class="p">,</span> <span class="s2">&quot;multi_label&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;&quot;&quot;task must be [&#39;single_label&#39;, &#39;multi_label&#39;] not </span><span class="si">{</span><span class="n">task</span><span class="si">}</span><span class="s2">&quot;&quot;&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">task</span> <span class="o">=</span> <span class="n">task</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">class_to_idx</span> <span class="o">=</span> <span class="n">class_to_idx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_classes</span> <span class="o">=</span> <span class="n">num_classes</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_available_device</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_model</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model_to_device</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_custom_weights</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_model_to_device</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load model on the device.&quot;&quot;&quot;</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">empty_cache</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;CUDA device selected but not available, using CPU&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_available_device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_available_device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_available_device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error with device:&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="si">}</span><span class="s2">&#39;, using CPU&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_available_device</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_load_model</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">TM</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load model from timm library.</span>
+
+<span class="sd">        Extra layer and dropout layer are added if necessary.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        model : timm.models</span>
+<span class="sd">            Model from timm library.</span>
+<span class="sd">        cfg : dict[str, tuple]</span>
+<span class="sd">            cfg contains &quot;input_size&quot;, &quot;mean&quot; and &quot;std&quot; keys.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">timm</span><span class="o">.</span><span class="n">create_model</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model_name</span><span class="p">,</span>
+            <span class="n">pretrained</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">learning_method</span> <span class="o">!=</span> <span class="s2">&quot;from_scratch&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_freeze_pretrained_layers</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+        <span class="n">head_name</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">default_cfg</span><span class="p">[</span><span class="s2">&quot;classifier&quot;</span><span class="p">]</span>
+
+        <span class="n">layer_clsf</span> <span class="o">=</span> <span class="n">operator</span><span class="o">.</span><span class="n">attrgetter</span><span class="p">(</span><span class="n">head_name</span><span class="p">)(</span><span class="n">model</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">layer_clsf</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;Linear&quot;</span><span class="p">:</span>
+            <span class="n">num_features</span> <span class="o">=</span> <span class="n">layer_clsf</span><span class="o">.</span><span class="n">in_features</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">head_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">))</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">head_name</span> <span class="o">=</span> <span class="n">head_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+                <span class="n">head_clsf</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">head_name</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">new_atr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_general_head_layer</span><span class="p">(</span><span class="n">num_features</span><span class="p">)</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">head_clsf</span><span class="p">,</span> <span class="n">head_name</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">new_atr</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">new_atr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_general_head_layer</span><span class="p">(</span><span class="n">num_features</span><span class="p">)</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">head_name</span><span class="p">,</span> <span class="n">new_atr</span><span class="p">)</span>
+
+        <span class="n">cfg_</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">default_cfg</span>
+        <span class="n">cfg</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;input_size&quot;</span><span class="p">:</span> <span class="n">cfg_</span><span class="p">[</span><span class="s2">&quot;input_size&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">:],</span>
+            <span class="s2">&quot;mean&quot;</span><span class="p">:</span> <span class="n">cfg_</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;std&quot;</span><span class="p">:</span> <span class="n">cfg_</span><span class="p">[</span><span class="s2">&quot;std&quot;</span><span class="p">],</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">model</span><span class="p">,</span> <span class="n">cfg</span>
+
+    <span class="k">def</span> <span class="nf">_general_head_layer</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">num_features</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create new model head layer.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        num_features: int</span>
+<span class="sd">            Number of in features in the last layer of the original neural net.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        layer: torch.nn.Sequential or else torch.nn.Linear</span>
+<span class="sd">            Model head layer.</span>
+
+<span class="sd">            If self.extra_layer or self.dropout has a value (different from None)</span>
+<span class="sd">            the return type is torch.nn.Sequential. Otherwise the return type</span>
+<span class="sd">            is torch.nn.linear.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">extra_layer</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">:</span>
+            <span class="n">layers</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">:</span>
+                <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">))</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">extra_layer</span><span class="p">:</span>
+                <span class="n">layers</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">num_features</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">extra_layer</span><span class="p">),</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()])</span>
+                <span class="n">num_features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extra_layer</span>
+            <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">num_features</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_classes</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">layers</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">num_features</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_classes</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_freeze_pretrained_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">timm</span><span class="o">.</span><span class="n">models</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">timm</span><span class="o">.</span><span class="n">models</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Freeze layers if `learning_method` is `freezed`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        model : timm.models</span>
+<span class="sd">            Model from timm library.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        model : timm.models</span>
+<span class="sd">            Model from timm library.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">learning_method</span> <span class="o">==</span> <span class="s2">&quot;freezed&quot;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">():</span>
+                <span class="n">param</span><span class="o">.</span><span class="n">requires_grad</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="n">model</span>
+
+    <span class="k">def</span> <span class="nf">_load_custom_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load weights from path.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        model : timm.models</span>
+<span class="sd">            Model from timm library.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        model : timm.models</span>
+<span class="sd">            Model from timm library with custom weights loaded.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights_path</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weights_path</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_available_device</span><span class="p">),</span>
+            <span class="p">)</span>
+
+<div class="viewcode-block" id="VisionClassifier.create_default_transform"><a class="viewcode-back" href="../aisee.html#aisee.vision_classifier.VisionClassifier.create_default_transform">[docs]</a>    <span class="k">def</span> <span class="nf">create_default_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create default transform based on timm config model.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict_transform : dict[str, torchvision.transforms.Compose]</span>
+<span class="sd">            A `torchvision.transforms.Compose` for train and another one for val/test.</span>
+<span class="sd">            The dictionary keys are &quot;train&quot; and &quot;val&quot;. Both keys contain a</span>
+<span class="sd">            `torchvision.transforms.Compose` that contains the following layers:</span>
+
+<span class="sd">            - Resize</span>
+<span class="sd">            - ToTensor</span>
+<span class="sd">            - Normalize</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">transform</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;input_size&quot;</span><span class="p">]),</span>
+                <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+                <span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;std&quot;</span><span class="p">]),</span>
+            <span class="p">],</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="n">transform</span><span class="p">,</span> <span class="s2">&quot;val&quot;</span><span class="p">:</span> <span class="n">transform</span><span class="p">}</span></div>
+
+<div class="viewcode-block" id="VisionClassifier.create_dataloader"><a class="viewcode-back" href="../aisee.html#aisee.vision_classifier.VisionClassifier.create_dataloader">[docs]</a>    <span class="k">def</span> <span class="nf">create_dataloader</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+        <span class="n">num_workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="n">data_transform</span><span class="p">:</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="n">shuffle</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create dataloaders from data.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : pandas.DataFrame or str</span>
+<span class="sd">            A DataFrame or a string which contains the training data:</span>
+
+<span class="sd">        - If it is a dataframe:</span>
+<span class="sd">            - If it is a multiclass problem: the dataframe must contain a `path`</span>
+<span class="sd">            column with the full path of the image and a `label` column (optional) with</span>
+<span class="sd">            the label assigned to the image. This `label` can be a number or a string.</span>
+
+<span class="sd">            Example:</span>
+
+<span class="sd">            +-------------------+------------+</span>
+<span class="sd">            |       path        |   label    |</span>
+<span class="sd">            +===================+============+</span>
+<span class="sd">            |&quot;sample/cat1.png&quot;  |   &quot;cat&quot;    |</span>
+<span class="sd">            +-------------------+------------+</span>
+<span class="sd">            |&quot;sample/cat2.png&quot;  |   &quot;cat&quot;    |</span>
+<span class="sd">            +-------------------+------------+</span>
+<span class="sd">            |&quot;sample/dog1.png&quot;  |   &quot;dog&quot;    |</span>
+<span class="sd">            +-------------------+------------+</span>
+<span class="sd">            |&quot;sample/cat3.png&quot;  |   &quot;cat&quot;    |</span>
+<span class="sd">            +-------------------+------------+</span>
+
+<span class="sd">            or</span>
+
+<span class="sd">            +-----------------+</span>
+<span class="sd">            |        path     |</span>
+<span class="sd">            +=================+</span>
+<span class="sd">            |&quot;sample/cat1.png&quot;|</span>
+<span class="sd">            +-----------------+</span>
+<span class="sd">            |&quot;sample/cat2.png&quot;|</span>
+<span class="sd">            +-----------------+</span>
+<span class="sd">            |&quot;sample/dog1.png&quot;|</span>
+<span class="sd">            +-----------------+</span>
+<span class="sd">            |&quot;sample/cat3.png&quot;|</span>
+<span class="sd">            +-----------------+</span>
+
+<span class="sd">            - If it is a multilabel problem: the dataframe must contain a &quot;path&quot;</span>
+<span class="sd">            column with the full path of the image and one column for each</span>
+<span class="sd">            class in the problem. The classes that belong to that image will be</span>
+<span class="sd">            indicated with a &quot;1&quot; and those that do not with a &quot;0&quot;.</span>
+
+<span class="sd">            Example:</span>
+
+<span class="sd">            +------------------------+---------+---------------+--------+</span>
+<span class="sd">            |        path            |   car   |   motorbike   |   bus  |</span>
+<span class="sd">            +========================+=========+===============+========+</span>
+<span class="sd">            |&quot;sample/vehicles1.png&quot;  |    1    |       1       |    0   |</span>
+<span class="sd">            +------------------------+---------+---------------+--------+</span>
+<span class="sd">            |&quot;sample/vehicles2.png&quot;  |    0    |       0       |    1   |</span>
+<span class="sd">            +------------------------+---------+---------------+--------+</span>
+<span class="sd">            |&quot;sample/vehicles3.png&quot;  |    1    |       0       |    1   |</span>
+<span class="sd">            +------------------------+---------+---------------+--------+</span>
+<span class="sd">            |&quot;sample/vehicles4.png&quot;  |    1    |       0       |    0   |</span>
+<span class="sd">            +------------------------+---------+---------------+--------+</span>
+
+<span class="sd">        - If it is a string, it must be:</span>
+<span class="sd">            - A path to an image.</span>
+
+<span class="sd">            Example</span>
+
+<span class="sd">            .. code-block:: console</span>
+
+<span class="sd">                /data/cat.png</span>
+
+<span class="sd">            - A directory where each folder is a class, and inside that class are the</span>
+<span class="sd">            images.</span>
+
+<span class="sd">            Example:</span>
+
+<span class="sd">            .. code-block:: console</span>
+
+<span class="sd">                ├── animals</span>
+<span class="sd">                ├── cat</span>
+<span class="sd">                │  ├── cat1.jpg</span>
+<span class="sd">                │  └── cat2.jpg</span>
+<span class="sd">                └── dog</span>
+<span class="sd">                    ├── dog1.jpg</span>
+<span class="sd">                    └── dog2.jpg</span>
+
+<span class="sd">        num_workers : int, default=2</span>
+<span class="sd">            Subprocesses to use for data loading.</span>
+<span class="sd">        data_transform : torchvision.transforms.Compose, default=None</span>
+<span class="sd">        batch_size : int, default=8</span>
+<span class="sd">        shuffle : bool, default=False</span>
+<span class="sd">            Shuffle the data.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        image_dataloader : torch.utils.data.DataLoader</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">data_transform</span><span class="p">:</span>
+            <span class="n">data_transform</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_default_transform</span><span class="p">()[</span><span class="s2">&quot;val&quot;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="n">image_dataset</span> <span class="o">=</span> <span class="n">DatasetFromDataFrame</span><span class="p">(</span>
+                <span class="n">data</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="p">,</span>
+                <span class="n">data_transform</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">class_to_idx</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">))</span> <span class="ow">and</span> <span class="n">Path</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">Path</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+                <span class="n">image_dataset</span> <span class="o">=</span> <span class="n">DatasetFromSingleImage</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">data_transform</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">Path</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+                <span class="n">image_dataset</span> <span class="o">=</span> <span class="n">DatasetFromFolder</span><span class="p">(</span>
+                    <span class="n">data</span><span class="p">,</span>
+                    <span class="n">data_transform</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">class_to_idx</span><span class="p">,</span>
+                <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Data must be a valid directory path (str), an image path (str) or a Pandas Dataframe.&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span>
+            <span class="n">image_dataset</span><span class="p">,</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
+            <span class="n">shuffle</span><span class="o">=</span><span class="n">shuffle</span><span class="p">,</span>
+            <span class="n">num_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="VisionClassifier.predict"><a class="viewcode-back" href="../aisee.html#aisee.vision_classifier.VisionClassifier.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+        <span class="n">num_workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="n">data_transform</span><span class="p">:</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">T</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Predict images in `data`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : pandas.DataFrame or str</span>
+<span class="sd">            It must be a dataframe or a string:</span>
+
+<span class="sd">            - If it is a dataframe:</span>
+<span class="sd">                - If it is a multiclass problem: the dataframe must contain a `path`</span>
+<span class="sd">                column with the full path of the image and a `label` column with</span>
+<span class="sd">                the label assigned to the image. This `label` can be a number or a string.</span>
+
+<span class="sd">                Example:</span>
+
+<span class="sd">                +-------------------+------------+</span>
+<span class="sd">                |       path        |   label    |</span>
+<span class="sd">                +===================+============+</span>
+<span class="sd">                |&quot;sample/cat1.png&quot;  |   &quot;cat&quot;    |</span>
+<span class="sd">                +-------------------+------------+</span>
+<span class="sd">                |&quot;sample/cat2.png&quot;  |   &quot;cat&quot;    |</span>
+<span class="sd">                +-------------------+------------+</span>
+<span class="sd">                |&quot;sample/dog1.png&quot;  |   &quot;dog&quot;    |</span>
+<span class="sd">                +-------------------+------------+</span>
+<span class="sd">                |&quot;sample/cat3.png&quot;  |   &quot;cat&quot;    |</span>
+<span class="sd">                +-------------------+------------+</span>
+
+<span class="sd">                - If it is a multilabel problem: the dataframe must contain a &quot;path&quot;</span>
+<span class="sd">                column with the full path of the image and one column for each</span>
+<span class="sd">                class in the problem. The classes that belong to that image will be</span>
+<span class="sd">                indicated with a &quot;1&quot; and those that do not with a &quot;0&quot;.</span>
+
+<span class="sd">                Example:</span>
+
+<span class="sd">                +------------------------+---------+---------------+--------+</span>
+<span class="sd">                |        path            |   car   |   motorbike   |   bus  |</span>
+<span class="sd">                +========================+=========+===============+========+</span>
+<span class="sd">                |&quot;sample/vehicles1.png&quot;  |    1    |       1       |    0   |</span>
+<span class="sd">                +------------------------+---------+---------------+--------+</span>
+<span class="sd">                |&quot;sample/vehicles2.png&quot;  |    0    |       0       |    1   |</span>
+<span class="sd">                +------------------------+---------+---------------+--------+</span>
+<span class="sd">                |&quot;sample/vehicles3.png&quot;  |    1    |       0       |    1   |</span>
+<span class="sd">                +------------------------+---------+---------------+--------+</span>
+<span class="sd">                |&quot;sample/vehicles4.png&quot;  |    1    |       0       |    0   |</span>
+<span class="sd">                +------------------------+---------+---------------+--------+</span>
+
+<span class="sd">            - If it is a string, it must be:</span>
+
+<span class="sd">                - A path to an image.</span>
+
+<span class="sd">                Example</span>
+
+<span class="sd">                .. code-block:: console</span>
+
+<span class="sd">                    /data/cat.png</span>
+
+<span class="sd">                - A directory where each folder is a class, and inside that class are the</span>
+<span class="sd">                images.</span>
+
+<span class="sd">                Example:</span>
+
+<span class="sd">                .. code-block:: console</span>
+
+<span class="sd">                    ├── animals</span>
+<span class="sd">                    ├── cat</span>
+<span class="sd">                    │  ├── cat1.jpg</span>
+<span class="sd">                    │  └── cat2.jpg</span>
+<span class="sd">                    └── dog</span>
+<span class="sd">                        ├── dog1.jpg</span>
+<span class="sd">                        └── dog2.jpg</span>
+
+<span class="sd">        num_workers : int, default=2</span>
+<span class="sd">            Subprocesses to use for data loading.</span>
+<span class="sd">        data_transform : torchvision.transforms.Compose, default=None</span>
+<span class="sd">        batch_size : int, default=8</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        result : list[Mapping[str, T]]</span>
+<span class="sd">            Each position of the lists contains a dictionaty like this:</span>
+
+<span class="sd">            .. code-block:: console</span>
+
+<span class="sd">                {</span>
+<span class="sd">                    &quot;image_path&quot;: &lt;path of the image&gt;,</span>
+<span class="sd">                    &quot;probabilities&quot;: &lt;all classes probabilities&gt;,</span>
+<span class="sd">                    &quot;prediction&quot;: &lt;class(es) predicted&gt;,</span>
+<span class="sd">                    &quot;real_label&quot;: &lt;real label(s)&gt;</span>
+<span class="sd">                }</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dataloader</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_dataloader</span><span class="p">(</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">num_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">,</span>
+            <span class="n">data_transform</span><span class="o">=</span><span class="n">data_transform</span><span class="p">,</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
+            <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">image_paths</span><span class="p">,</span> <span class="n">probabilities</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">real_labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict_loop</span><span class="p">(</span>
+            <span class="n">dataloader</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;image_path&quot;</span><span class="p">:</span> <span class="n">image_path</span><span class="p">,</span>
+                <span class="s2">&quot;probabilities&quot;</span><span class="p">:</span> <span class="n">prob</span><span class="o">.</span><span class="n">numpy</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                <span class="s2">&quot;prediction&quot;</span><span class="p">:</span> <span class="n">pred</span><span class="o">.</span><span class="n">numpy</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                <span class="s2">&quot;real_label&quot;</span><span class="p">:</span> <span class="n">real_label</span><span class="o">.</span><span class="n">numpy</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+            <span class="p">}</span>
+            <span class="k">for</span> <span class="n">image_path</span><span class="p">,</span> <span class="n">prob</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">real_label</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+                <span class="n">image_paths</span><span class="p">,</span>
+                <span class="n">probabilities</span><span class="p">,</span>
+                <span class="n">predictions</span><span class="p">,</span>
+                <span class="n">real_labels</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">]</span></div>
+
+<div class="viewcode-block" id="VisionClassifier.predict_loop"><a class="viewcode-back" href="../aisee.html#aisee.vision_classifier.VisionClassifier.predict_loop">[docs]</a>    <span class="k">def</span> <span class="nf">predict_loop</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">dataloader</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Make the loop for predict.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dataloader : torch.utils.data.DataLoader</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        results : tuple[list, torch.Tensor, torch.Tensor, torch.Tensor]</span>
+<span class="sd">            The tuple contains:</span>
+<span class="sd">            - `all_paths`: Paths of the images predicted</span>
+<span class="sd">            - `all_probabilities`: Probabilities of the images predicted</span>
+<span class="sd">            - `all_predictions`: Classes predicted of the images.</span>
+<span class="sd">            - `all_real_labels`:  Real labels of the images predicted</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">all_probabilities</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_available_device</span><span class="p">)</span>
+        <span class="n">all_predictions</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_available_device</span><span class="p">)</span>
+        <span class="n">all_real_labels</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_available_device</span><span class="p">)</span>
+        <span class="n">all_paths</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">dataloader</span><span class="p">:</span>
+                <span class="n">inputs</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">paths</span> <span class="o">=</span> <span class="n">batch</span>
+
+                <span class="n">inputs</span> <span class="o">=</span> <span class="n">inputs</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_available_device</span><span class="p">)</span>
+                <span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_available_device</span><span class="p">)</span>
+
+                <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span> <span class="o">==</span> <span class="s2">&quot;single_label&quot;</span><span class="p">:</span>
+                    <span class="n">probabilities</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="n">_</span><span class="p">,</span> <span class="n">predictions</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">probabilities</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span> <span class="o">==</span> <span class="s2">&quot;multi_label&quot;</span><span class="p">:</span>
+                    <span class="n">probabilities</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
+                    <span class="n">predictions</span> <span class="o">=</span> <span class="n">probabilities</span> <span class="o">&gt;</span> <span class="mf">0.5</span>
+
+                <span class="n">all_probabilities</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">all_probabilities</span><span class="p">,</span> <span class="n">probabilities</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">all_predictions</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">all_predictions</span><span class="p">,</span> <span class="n">predictions</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">all_real_labels</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">all_real_labels</span><span class="p">,</span> <span class="n">labels</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">all_paths</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">all_paths</span><span class="p">,</span> <span class="n">all_probabilities</span><span class="p">,</span> <span class="n">all_predictions</span><span class="p">,</span> <span class="n">all_real_labels</span></div></div>
+</pre></div>
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2023, Instituto de Ingeniería del Conocimiento.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
