@@ -113,7 +113,7 @@ Follow the steps below to start contributing:
 
     .. code-block:: console
 
-        pytest tests/<TEST_TO_RUN>.py
+        poetry run pytest tests/<TEST_TO_RUN>.py
 
    AISee relies on `black` and `ruff` to format its source code
    consistently. After you make changes, apply automatic style corrections and code verifications

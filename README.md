@@ -1,6 +1,8 @@
-![](./docs/source/_resources/aisee-logo.png)
+[![AISee Logo](./docs/source/_resources/aisee-logo.png)](https://iiconocimiento.github.io/aisee/stable/)
 
 ---
+
+[![License: MIT](https://img.shields.io/github/license/iiconocimiento/aisee)](https://github.com/iiconocimiento/aisee/blob/main/LICENSE) ![GitHub Stars](https://img.shields.io/github/stars/iiconocimiento/aisee?style=social) [![Latest Version on Pypi](https://img.shields.io/pypi/v/aisee)](https://pypi.org/project/aisee/) ![Supported Python versions](https://img.shields.io/pypi/pyversions/aisee) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) ![Unit tests](https://github.com/iiconocimiento/aisee/actions/workflows/unit-tests.yml/badge.svg) ![Docs](https://github.com/iiconocimiento/aisee/actions/workflows/documentation.yml/badge.svg)
 
 An open-source library for computer vision built on top of PyTorch and Timm libraries. It provides an easy-to-use interface for training and predicting with State-of-the-Art neural networks.
 

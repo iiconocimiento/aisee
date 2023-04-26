@@ -1,4 +1,4 @@
-name: Build documentation for testing
+name: Docs
 
 on:
   push:
