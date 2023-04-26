@@ -15,6 +15,15 @@ An open-source library for computer vision built on top of PyTorch and Timm libr
 - 🔨 We take care of `DataLoaders`, image transformations and training and inference loops.
 
 
+## Installation
+
+Install AISee using pip.
+
+```bash
+pip install aisee
+```
+
+
 ## Quick tour
 
 Here's an example of how to quickly train a model using AISee. We just have to initialize a `VisionClassifier` model and create a `Trainer`. As easy as it gets!
@@ -47,13 +56,11 @@ trainer.base_model.predict("animals/without_label")
 ```
 
 
-## Installation
+## Try it on Google Colab
+<a target="_blank" href="https://colab.research.google.com/github/iiconocimiento/aisee/blob/main/notebooks/multi_class_classification.ipynb">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
 
-Install AISee using pip.
-
-```bash
-pip install aisee
-```
 
 ## Getting started
 
