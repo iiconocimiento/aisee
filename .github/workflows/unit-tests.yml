@@ -65,4 +65,4 @@ jobs:
           fail_ci_if_error: true
           flags: unit_tests
           name: codecov-aisee
-         verbose: true
+          verbose: true
