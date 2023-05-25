@@ -80,6 +80,6 @@ We also appreciate your feedback which helps us develop a robust and efficient s
 For any questions or inquiries regarding the AISee library or potential collaborations, please feel free to contact us in marketing@iic.uam.es. 
 
 ## Instituto de Ingeniería del Conocimiento (IIC)
-IIC is a non-profit R&D centre founded in 1989 that has been working on Big Data analysis and Artificial Intelligence for more than 30 years. Its value proposition is the development of algorithms and analytical solutions based on applied research tailored to different businesses in different sectors such as energy, health, insurance and talent analytics.
+[IIC](https://www.iic.uam.es/) is a non-profit R&D centre founded in 1989 that has been working on Big Data analysis and Artificial Intelligence for more than 30 years. Its value proposition is the development of algorithms and analytical solutions based on applied research tailored to different businesses in different sectors such as energy, health, insurance and talent analytics.
 
 ---
