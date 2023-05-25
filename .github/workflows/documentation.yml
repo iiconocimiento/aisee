@@ -2,9 +2,11 @@ name: Docs
 
 on:
   push:
-  pull_request:
     branches-ignore:
       - main
+  pull_request:
+    branches:
+       - '*'
 
 jobs:
   build:
