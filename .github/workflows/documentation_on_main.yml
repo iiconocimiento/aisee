@@ -2,8 +2,8 @@ name: Build dev documentation
 
 on:
   push:
-  pull_request:
-    branches: [ 'main' ]
+    branches: 
+      - 'main'
 
 jobs:
   build:
