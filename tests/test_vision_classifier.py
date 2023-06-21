@@ -5,13 +5,20 @@ import numpy as np
 import pandas as pd
 import pytest
 from huggingface_hub import snapshot_download
+from sklearn.metrics import (
+    accuracy_score,
+    f1_score,
+    multilabel_confusion_matrix,
+    precision_score,
+)
 
 from aisee import VisionClassifier
 
 TEST_PATH = Path(__file__).resolve().parent
 if not Path(TEST_PATH, "resources").exists():
     snapshot_download(
-        repo_id="IIC/aisee_resources", local_dir=f"{TEST_PATH}/resources/",
+        repo_id="IIC/aisee_resources",
+        local_dir=f"{TEST_PATH}/resources/",
     )
 
 SINGLE_LABEL_DATAFRAME = pd.DataFrame(
@@ -250,6 +257,51 @@ def test_vision_classifier_predict_multi_label():
 
     assert all(
         (predictions[0]["probabilities"] >= 0) & (predictions[0]["probabilities"] <= 1),
+    )
+
+
+def test_vision_classifier_evaluate_single_label():
+    """Check that evaluate method works properly in single label tasks."""
+    vc = VisionClassifier(
+        model_name=MODEL_TEST,
+        num_classes=2,
+        task="single_label",
+    )
+
+    data_dir = f"{TEST_PATH}/resources/images/train"
+
+    eval_res = vc.evaluate(
+        data=data_dir,
+        metrics=[accuracy_score, f1_score, precision_score],
+        kwargs={"f1_score": {"average": "micro"}},
+    )
+
+    assert len(eval_res) == 3
+    assert all(
+        key in eval_res for key in ["accuracy_score", "f1_score", "precision_score"]
+    )
+
+
+def test_vision_classifier_evaluate_multi_label():
+    """Check that evaluate method works properly in multi label tasks."""
+    vc = VisionClassifier(
+        model_name=MODEL_TEST,
+        num_classes=25,
+        task="multi_label",
+    )
+
+    data = pd.read_csv(f"{TEST_PATH}/resources/multilabel/train.csv")
+    data["path"] = data["path"].apply(lambda x: f"{TEST_PATH}/{x}")
+
+    eval_res = vc.evaluate(
+        data=data,
+        metrics=[accuracy_score, f1_score, precision_score],
+        kwargs={"f1_score": {"average": "micro"}},
+    )
+
+    assert len(eval_res) == 3
+    assert all(
+        key in eval_res for key in ["accuracy_score", "f1_score", "precision_score"]
     )
 
 
