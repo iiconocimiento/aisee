@@ -729,8 +729,8 @@ class VisionClassifier:
         predictions = pd.DataFrame(predictions, columns=["prediction", "real_label"])
 
         if self.task == "single_label":
-            y_pred = [value.item() for value in predictions["prediction"].to_numpy()]
-            y_true = [value.item() for value in predictions["real_label"].to_numpy()]
+            y_pred = predictions["prediction"].astype("int")
+            y_true = predictions["real_label"].astype("int")
         elif self.task == "multi_label":
             y_pred = np.concatenate(predictions["prediction"].to_numpy())
             y_true = np.concatenate(predictions["real_label"].to_numpy())
