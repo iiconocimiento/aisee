@@ -746,6 +746,6 @@ class VisionClassifier:
                 **kwargs[metric.__name__],
             )
             if metric.__name__ in kwargs
-            else metric(y_pred, y_true)
+            else metric(y_pred=y_pred, y_true=y_true)
             for metric in metrics
         }
