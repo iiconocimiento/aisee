@@ -273,7 +273,7 @@ def test_vision_classifier_evaluate_single_label():
     eval_res = vc.evaluate(
         data=data_dir,
         metrics=[accuracy_score, f1_score, precision_score],
-        kwargs={"f1_score": {"average": "micro"}},
+        metrics_kwargs={"f1_score": {"average": "micro"}},
     )
 
     assert len(eval_res) == 3
@@ -296,7 +296,7 @@ def test_vision_classifier_evaluate_multi_label():
     eval_res = vc.evaluate(
         data=data,
         metrics=[multilabel_confusion_matrix, f1_score, precision_score],
-        kwargs={"f1_score": {"average": "micro"}},
+        metrics_kwargs={"f1_score": {"average": "micro"}},
     )
 
     assert len(eval_res) == 3

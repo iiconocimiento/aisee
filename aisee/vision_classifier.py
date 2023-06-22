@@ -607,7 +607,7 @@ class VisionClassifier:
         self,
         data: Union[pd.Series, pd.DataFrame, str],
         metrics: list[Callable],
-        kwargs: dict[str, dict[str, Any]],
+        metrics_kwargs: dict[str, dict[str, Any]],
         num_workers: int = 2,
         data_transform: transforms.Compose = None,
         batch_size: int = 8,
@@ -701,7 +701,7 @@ class VisionClassifier:
             `y_pred` and `y_true`, and each parameter accepts pure predictions as 1D array-like.
 
             For example, you can import `accuracy_score` from `sklearn.metrics`.
-        kwargs : Dict[str, Dict[str, Any]]
+        metrics_kwargs : Dict[str, Dict[str, Any]]
             Each key of the dictionary represents the name of one of the functions
             indicated in the `metrics` parameter. The value is a dictionary with the
             arguments of thath function.
@@ -712,7 +712,7 @@ class VisionClassifier:
 
                 .. code-block:: python
 
-                kwargs = {"f1_score": {"average": "micro"}}
+                metrics_kwargs = {"f1_score": {"average": "micro"}}
 
         num_workers : int, default=2
             Subprocesses to use for data loading.
@@ -743,9 +743,9 @@ class VisionClassifier:
             metric.__name__: metric(
                 y_pred=y_pred,
                 y_true=y_true,
-                **kwargs[metric.__name__],
+                **metrics_kwargs[metric.__name__],
             )
-            if metric.__name__ in kwargs
+            if metric.__name__ in metrics_kwargs
             else metric(y_pred=y_pred, y_true=y_true)
             for metric in metrics
         }
