@@ -295,13 +295,14 @@ def test_vision_classifier_evaluate_multi_label():
 
     eval_res = vc.evaluate(
         data=data,
-        metrics=[accuracy_score, f1_score, precision_score],
+        metrics=[multilabel_confusion_matrix, f1_score, precision_score],
         kwargs={"f1_score": {"average": "micro"}},
     )
 
     assert len(eval_res) == 3
     assert all(
-        key in eval_res for key in ["accuracy_score", "f1_score", "precision_score"]
+        key in eval_res
+        for key in ["multilabel_confusion_matrix", "f1_score", "precision_score"]
     )
 
 

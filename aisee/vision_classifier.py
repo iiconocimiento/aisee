@@ -602,13 +602,13 @@ class VisionClassifier:
 
     def evaluate(
         self,
-        data,
-        metrics: List[Callable],
-        kwargs: Dict[str, Dict[str, Any]],
+        data: Union[pd.Series, pd.DataFrame, str],,
+        metrics: list[Callable],
+        kwargs: dict[str, dict[str, Any]],
         num_workers: int = 2,
         data_transform: transforms.Compose = None,
         batch_size: int = 8,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Evaluate `data` over the metrics indicated in the `metrics` parameter.
 
@@ -723,24 +723,20 @@ class VisionClassifier:
             The values are the results of each function.
         """
         predictions = self.predict(data, num_workers, data_transform, batch_size)
-        print(predictions)
-        print(pd.DataFrame(predictions))
         predictions = pd.DataFrame(predictions, columns=["prediction", "real_label"])
 
-        print(predictions)
-        print(predictions["prediction"].values)
         if self.task == "single_label":
-            y_pred = [value.item() for value in predictions["prediction"].values]
-            y_true = [value.item() for value in predictions["real_label"].values]
+            y_pred = [value.item() for value in predictions["prediction"].to_numpy()]
+            y_true = [value.item() for value in predictions["real_label"].to_numpy()]
         elif self.task == "multi_label":
-            y_pred = np.concatenate(predictions["prediction"].values)
-            y_true = np.concatenate(predictions["real_label"].values)
+            y_pred = np.concatenate(predictions["prediction"].to_numpy())
+            y_true = np.concatenate(predictions["real_label"].to_numpy())
         else:
             raise NotImplementedError(
                 f"""Evaluate method is not implemented for task {self.task}""",
             )
 
-        evaluation_results = {
+        return {
             metric.__name__: metric(
                 y_pred=y_pred,
                 y_true=y_true,
@@ -750,5 +746,3 @@ class VisionClassifier:
             else metric(y_pred, y_true)
             for metric in metrics
         }
-
-        return evaluation_results
