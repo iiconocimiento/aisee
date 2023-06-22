@@ -11,8 +11,11 @@ import torch
 from torch import nn
 from torchvision import transforms
 
-from .custom_datasets import (DatasetFromDataFrame, DatasetFromFolder,
-                              DatasetFromSingleImage)
+from .custom_datasets import (
+    DatasetFromDataFrame,
+    DatasetFromFolder,
+    DatasetFromSingleImage,
+)
 
 T = TypeVar("T")
 TM = TypeVar("TM")
