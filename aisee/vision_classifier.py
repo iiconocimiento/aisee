@@ -2,7 +2,7 @@ import logging
 import operator
 from collections.abc import Mapping
 from pathlib import Path
-from typing import Any, Callable, Dict, List, TypeVar, Union
+from typing import Any, Callable, TypeVar, Union
 
 import numpy as np
 import pandas as pd
@@ -602,7 +602,7 @@ class VisionClassifier:
 
     def evaluate(
         self,
-        data: Union[pd.Series, pd.DataFrame, str],,
+        data: Union[pd.Series, pd.DataFrame, str],
         metrics: list[Callable],
         kwargs: dict[str, dict[str, Any]],
         num_workers: int = 2,
