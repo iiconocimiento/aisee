@@ -726,17 +726,17 @@ class VisionClassifier:
             The resulting dictionary has a key for each function in the `metrics` parameter.
             The values are the results of each function.
         """
-
         for metric in metrics:
             func_params = inspect.signature(metric).parameters
             if not all(
-                [
-                    required_param in func_params
-                    for required_param in ["y_true", "y_pred"]
+                required_param in func_params
+                for required_param in [
+                    "y_true",
+                    "y_pred",
                 ]
             ):
                 raise TypeError(
-                    f"Parameters y_true and y_pred are required in function {metric.__name__}"
+                    f"Parameters y_true and y_pred are required in function {metric.__name__}",
                 )
 
         predictions = self.predict(data, num_workers, data_transform, batch_size)

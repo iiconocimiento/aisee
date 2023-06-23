@@ -320,7 +320,7 @@ def test_vision_classifier_evaluate_type_error():
 
     data_dir = f"{TEST_PATH}/resources/images/train"
 
-    with pytest.raises(TypeError)
+    with pytest.raises(TypeError):
         vc.evaluate(
             data=data_dir,
             metrics=[accuracy_score, f1_score, precision_score, custom_bad_metric],
