@@ -334,12 +334,14 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <h1>Source code for aisee.vision_classifier</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span></span><span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">operator</span>
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Union</span>
 
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">timm</span>
 <span class="kn">import</span> <span class="nn">torch</span>
@@ -936,7 +938,163 @@ document.write(`
                 <span class="n">all_real_labels</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">all_real_labels</span><span class="p">,</span> <span class="n">labels</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
                 <span class="n">all_paths</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">all_paths</span><span class="p">,</span> <span class="n">all_probabilities</span><span class="p">,</span> <span class="n">all_predictions</span><span class="p">,</span> <span class="n">all_real_labels</span></div></div>
+        <span class="k">return</span> <span class="n">all_paths</span><span class="p">,</span> <span class="n">all_probabilities</span><span class="p">,</span> <span class="n">all_predictions</span><span class="p">,</span> <span class="n">all_real_labels</span></div>
+
+<div class="viewcode-block" id="VisionClassifier.evaluate"><a class="viewcode-back" href="../aisee.html#aisee.vision_classifier.VisionClassifier.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+        <span class="n">metrics</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Callable</span><span class="p">],</span>
+        <span class="n">metrics_kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
+        <span class="n">num_workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="n">data_transform</span><span class="p">:</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Evaluate `data` over the metrics indicated in the `metrics` parameter.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : pandas.DataFrame or str</span>
+<span class="sd">            A DataFrame or a string which contains the training data:</span>
+
+<span class="sd">        - If it is a dataframe:</span>
+<span class="sd">            - If it is a multiclass problem: the dataframe must contain a `path`</span>
+<span class="sd">            column with the full path of the image and a `label` column (optional) with</span>
+<span class="sd">            the label assigned to the image. This `label` can be a number or a string.</span>
+
+<span class="sd">            Example:</span>
+
+<span class="sd">            +-------------------+------------+</span>
+<span class="sd">            |       path        |   label    |</span>
+<span class="sd">            +===================+============+</span>
+<span class="sd">            |&quot;sample/cat1.png&quot;  |   &quot;cat&quot;    |</span>
+<span class="sd">            +-------------------+------------+</span>
+<span class="sd">            |&quot;sample/cat2.png&quot;  |   &quot;cat&quot;    |</span>
+<span class="sd">            +-------------------+------------+</span>
+<span class="sd">            |&quot;sample/dog1.png&quot;  |   &quot;dog&quot;    |</span>
+<span class="sd">            +-------------------+------------+</span>
+<span class="sd">            |&quot;sample/cat3.png&quot;  |   &quot;cat&quot;    |</span>
+<span class="sd">            +-------------------+------------+</span>
+
+<span class="sd">            or</span>
+
+<span class="sd">            +-----------------+</span>
+<span class="sd">            |        path     |</span>
+<span class="sd">            +=================+</span>
+<span class="sd">            |&quot;sample/cat1.png&quot;|</span>
+<span class="sd">            +-----------------+</span>
+<span class="sd">            |&quot;sample/cat2.png&quot;|</span>
+<span class="sd">            +-----------------+</span>
+<span class="sd">            |&quot;sample/dog1.png&quot;|</span>
+<span class="sd">            +-----------------+</span>
+<span class="sd">            |&quot;sample/cat3.png&quot;|</span>
+<span class="sd">            +-----------------+</span>
+
+<span class="sd">            - If it is a multilabel problem: the dataframe must contain a &quot;path&quot;</span>
+<span class="sd">            column with the full path of the image and one column for each</span>
+<span class="sd">            class in the problem. The classes that belong to that image will be</span>
+<span class="sd">            indicated with a &quot;1&quot; and those that do not with a &quot;0&quot;.</span>
+
+<span class="sd">            Example:</span>
+
+<span class="sd">            +------------------------+---------+---------------+--------+</span>
+<span class="sd">            |        path            |   car   |   motorbike   |   bus  |</span>
+<span class="sd">            +========================+=========+===============+========+</span>
+<span class="sd">            |&quot;sample/vehicles1.png&quot;  |    1    |       1       |    0   |</span>
+<span class="sd">            +------------------------+---------+---------------+--------+</span>
+<span class="sd">            |&quot;sample/vehicles2.png&quot;  |    0    |       0       |    1   |</span>
+<span class="sd">            +------------------------+---------+---------------+--------+</span>
+<span class="sd">            |&quot;sample/vehicles3.png&quot;  |    1    |       0       |    1   |</span>
+<span class="sd">            +------------------------+---------+---------------+--------+</span>
+<span class="sd">            |&quot;sample/vehicles4.png&quot;  |    1    |       0       |    0   |</span>
+<span class="sd">            +------------------------+---------+---------------+--------+</span>
+
+<span class="sd">        - If it is a string, it must be:</span>
+<span class="sd">            - A path to an image.</span>
+
+<span class="sd">            Example</span>
+
+<span class="sd">            .. code-block:: console</span>
+
+<span class="sd">                /data/cat.png</span>
+
+<span class="sd">            - A directory where each folder is a class, and inside that class are the</span>
+<span class="sd">            images.</span>
+
+<span class="sd">            Example:</span>
+
+<span class="sd">            .. code-block:: console</span>
+
+<span class="sd">                ├── animals</span>
+<span class="sd">                ├── cat</span>
+<span class="sd">                │  ├── cat1.jpg</span>
+<span class="sd">                │  └── cat2.jpg</span>
+<span class="sd">                └── dog</span>
+<span class="sd">                    ├── dog1.jpg</span>
+<span class="sd">                    └── dog2.jpg</span>
+
+<span class="sd">        metrics : List[Callable]</span>
+<span class="sd">            Each element of the list is a function that at least has the parameters</span>
+<span class="sd">            `y_pred` and `y_true`, and each parameter accepts pure predictions as 1D array-like.</span>
+
+<span class="sd">            For example, you can import `accuracy_score` from `sklearn.metrics`.</span>
+<span class="sd">        metrics_kwargs : Dict[str, Dict[str, Any]]</span>
+<span class="sd">            Each key of the dictionary represents the name of one of the functions</span>
+<span class="sd">            indicated in the `metrics` parameter. The value is a dictionary with the</span>
+<span class="sd">            arguments of thath function.</span>
+
+<span class="sd">            For example, if your `metrics` parameter has the function `f1_score` from</span>
+<span class="sd">            `sklearn.metrics` and you want to use the parameter `average` with `micro` value,</span>
+<span class="sd">            your kwargs will be:</span>
+
+<span class="sd">                .. code-block:: python</span>
+
+<span class="sd">                metrics_kwargs = {&quot;f1_score&quot;: {&quot;average&quot;: &quot;micro&quot;}}</span>
+
+<span class="sd">        num_workers : int, default=2</span>
+<span class="sd">            Subprocesses to use for data loading.</span>
+<span class="sd">        data_transform : torchvision.transforms.Compose, default=None</span>
+<span class="sd">        batch_size : int, default=8</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        evaluation_results : Dict[str, Any]</span>
+<span class="sd">            The resulting dictionary has a key for each function in the `metrics` parameter.</span>
+<span class="sd">            The values are the results of each function.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">metric</span> <span class="ow">in</span> <span class="n">metrics</span><span class="p">:</span>
+            <span class="n">func_params</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span>
+                <span class="n">required_param</span> <span class="ow">in</span> <span class="n">func_params</span>
+                <span class="k">for</span> <span class="n">required_param</span> <span class="ow">in</span> <span class="p">[</span>
+                    <span class="s2">&quot;y_true&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;y_pred&quot;</span><span class="p">,</span>
+                <span class="p">]</span>
+            <span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Parameters y_true and y_pred are required in function </span><span class="si">{</span><span class="n">metric</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+
+        <span class="n">predictions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">num_workers</span><span class="p">,</span> <span class="n">data_transform</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">)</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;prediction&quot;</span><span class="p">,</span> <span class="s2">&quot;real_label&quot;</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span> <span class="o">==</span> <span class="s2">&quot;single_label&quot;</span><span class="p">:</span>
+            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;prediction&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">)</span>
+            <span class="n">y_true</span> <span class="o">=</span> <span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;real_label&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;prediction&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">())</span>
+            <span class="n">y_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;real_label&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="n">metric</span><span class="o">.</span><span class="vm">__name__</span><span class="p">:</span> <span class="n">metric</span><span class="p">(</span>
+                <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span>
+                <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">metrics_kwargs</span><span class="p">[</span><span class="n">metric</span><span class="o">.</span><span class="vm">__name__</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">metric</span><span class="o">.</span><span class="vm">__name__</span> <span class="ow">in</span> <span class="n">metrics_kwargs</span>
+            <span class="k">else</span> <span class="n">metric</span><span class="p">(</span><span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">metric</span> <span class="ow">in</span> <span class="n">metrics</span>
+        <span class="p">}</span></div></div>
 </pre></div>
 
                 </article>
