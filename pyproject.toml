@@ -104,7 +104,7 @@ select = [
     "RUF",
 ]
 unfixable = ["B007"]
-ignore = ["E501", "D100", "D103", "D104", "PLR0913", "PLR0915", "PLR2004", "S101", "ANN101"]
+ignore = ["E501", "D100", "D103", "D104", "PLR0913", "PLR0915", "PLR2004", "RUF013", "S101", "ANN101"]
 
 src = ["aisee", "tests"]
 

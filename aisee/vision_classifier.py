@@ -1,9 +1,11 @@
+import inspect
 import logging
 import operator
 from collections.abc import Mapping
 from pathlib import Path
-from typing import TypeVar, Union
+from typing import Any, Callable, TypeVar, Union
 
+import numpy as np
 import pandas as pd
 import timm
 import torch
@@ -601,3 +603,159 @@ class VisionClassifier:
                 all_paths.extend(paths)
 
         return all_paths, all_probabilities, all_predictions, all_real_labels
+
+    def evaluate(
+        self,
+        data: Union[pd.Series, pd.DataFrame, str],
+        metrics: list[Callable],
+        metrics_kwargs: dict[str, dict[str, Any]],
+        num_workers: int = 2,
+        data_transform: transforms.Compose = None,
+        batch_size: int = 8,
+    ) -> dict[str, Any]:
+        """
+        Evaluate `data` over the metrics indicated in the `metrics` parameter.
+
+        Parameters
+        ----------
+        data : pandas.DataFrame or str
+            A DataFrame or a string which contains the training data:
+
+        - If it is a dataframe:
+            - If it is a multiclass problem: the dataframe must contain a `path`
+            column with the full path of the image and a `label` column (optional) with
+            the label assigned to the image. This `label` can be a number or a string.
+
+            Example:
+
+            +-------------------+------------+
+            |       path        |   label    |
+            +===================+============+
+            |"sample/cat1.png"  |   "cat"    |
+            +-------------------+------------+
+            |"sample/cat2.png"  |   "cat"    |
+            +-------------------+------------+
+            |"sample/dog1.png"  |   "dog"    |
+            +-------------------+------------+
+            |"sample/cat3.png"  |   "cat"    |
+            +-------------------+------------+
+
+            or
+
+            +-----------------+
+            |        path     |
+            +=================+
+            |"sample/cat1.png"|
+            +-----------------+
+            |"sample/cat2.png"|
+            +-----------------+
+            |"sample/dog1.png"|
+            +-----------------+
+            |"sample/cat3.png"|
+            +-----------------+
+
+            - If it is a multilabel problem: the dataframe must contain a "path"
+            column with the full path of the image and one column for each
+            class in the problem. The classes that belong to that image will be
+            indicated with a "1" and those that do not with a "0".
+
+            Example:
+
+            +------------------------+---------+---------------+--------+
+            |        path            |   car   |   motorbike   |   bus  |
+            +========================+=========+===============+========+
+            |"sample/vehicles1.png"  |    1    |       1       |    0   |
+            +------------------------+---------+---------------+--------+
+            |"sample/vehicles2.png"  |    0    |       0       |    1   |
+            +------------------------+---------+---------------+--------+
+            |"sample/vehicles3.png"  |    1    |       0       |    1   |
+            +------------------------+---------+---------------+--------+
+            |"sample/vehicles4.png"  |    1    |       0       |    0   |
+            +------------------------+---------+---------------+--------+
+
+        - If it is a string, it must be:
+            - A path to an image.
+
+            Example
+
+            .. code-block:: console
+
+                /data/cat.png
+
+            - A directory where each folder is a class, and inside that class are the
+            images.
+
+            Example:
+
+            .. code-block:: console
+
+                ├── animals
+                ├── cat
+                │  ├── cat1.jpg
+                │  └── cat2.jpg
+                └── dog
+                    ├── dog1.jpg
+                    └── dog2.jpg
+
+        metrics : List[Callable]
+            Each element of the list is a function that at least has the parameters
+            `y_pred` and `y_true`, and each parameter accepts pure predictions as 1D array-like.
+
+            For example, you can import `accuracy_score` from `sklearn.metrics`.
+        metrics_kwargs : Dict[str, Dict[str, Any]]
+            Each key of the dictionary represents the name of one of the functions
+            indicated in the `metrics` parameter. The value is a dictionary with the
+            arguments of thath function.
+
+            For example, if your `metrics` parameter has the function `f1_score` from
+            `sklearn.metrics` and you want to use the parameter `average` with `micro` value,
+            your kwargs will be:
+
+                .. code-block:: python
+
+                metrics_kwargs = {"f1_score": {"average": "micro"}}
+
+        num_workers : int, default=2
+            Subprocesses to use for data loading.
+        data_transform : torchvision.transforms.Compose, default=None
+        batch_size : int, default=8
+
+        Returns
+        -------
+        evaluation_results : Dict[str, Any]
+            The resulting dictionary has a key for each function in the `metrics` parameter.
+            The values are the results of each function.
+        """
+        for metric in metrics:
+            func_params = inspect.signature(metric).parameters
+            if not all(
+                required_param in func_params
+                for required_param in [
+                    "y_true",
+                    "y_pred",
+                ]
+            ):
+                raise TypeError(
+                    f"Parameters y_true and y_pred are required in function {metric.__name__}",
+                )
+
+        predictions = self.predict(data, num_workers, data_transform, batch_size)
+        predictions = pd.DataFrame(predictions, columns=["prediction", "real_label"])
+
+        if self.task == "single_label":
+            y_pred = predictions["prediction"].astype("int")
+            y_true = predictions["real_label"].astype("int")
+        else:
+            y_pred = np.concatenate(predictions["prediction"].to_numpy())
+            y_true = np.concatenate(predictions["real_label"].to_numpy())
+
+        return {
+            metric.__name__: metric(
+                y_pred=y_pred,
+                y_true=y_true,
+                **metrics_kwargs[metric.__name__],
+            )
+            if metric.__name__ in metrics_kwargs
+            else metric(y_pred=y_pred, y_true=y_true)
+            for metric in metrics
+        }
