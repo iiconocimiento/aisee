@@ -306,6 +306,28 @@ def test_vision_classifier_evaluate_multi_label():
     )
 
 
+def test_vision_classifier_evaluate_type_error():
+    """Check that evaluate method works properly in single label tasks."""
+
+    def custom_bad_metric(y_true, predictions):
+        return y_true - predictions
+
+    vc = VisionClassifier(
+        model_name=MODEL_TEST,
+        num_classes=2,
+        task="single_label",
+    )
+
+    data_dir = f"{TEST_PATH}/resources/images/train"
+
+    with pytest.raises(TypeError)
+        vc.evaluate(
+            data=data_dir,
+            metrics=[accuracy_score, f1_score, precision_score, custom_bad_metric],
+            metrics_kwargs={"f1_score": {"average": "micro"}},
+        )
+
+
 def test_vision_classifier_data_value_error():
     """Check that VisionClassifier predict raise a ValueError with numeric data."""
     vc = VisionClassifier(

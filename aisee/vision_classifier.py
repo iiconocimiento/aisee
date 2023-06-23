@@ -1,3 +1,4 @@
+import inspect
 import logging
 import operator
 from collections.abc import Mapping
@@ -725,19 +726,28 @@ class VisionClassifier:
             The resulting dictionary has a key for each function in the `metrics` parameter.
             The values are the results of each function.
         """
+
+        for metric in metrics:
+            func_params = inspect.signature(metric).parameters
+            if not all(
+                [
+                    required_param in func_params
+                    for required_param in ["y_true", "y_pred"]
+                ]
+            ):
+                raise TypeError(
+                    f"Parameters y_true and y_pred are required in function {metric.__name__}"
+                )
+
         predictions = self.predict(data, num_workers, data_transform, batch_size)
         predictions = pd.DataFrame(predictions, columns=["prediction", "real_label"])
 
         if self.task == "single_label":
             y_pred = predictions["prediction"].astype("int")
             y_true = predictions["real_label"].astype("int")
-        elif self.task == "multi_label":
+        else:
             y_pred = np.concatenate(predictions["prediction"].to_numpy())
             y_true = np.concatenate(predictions["real_label"].to_numpy())
-        else:
-            raise NotImplementedError(
-                f"""Evaluate method is not implemented for task {self.task}""",
-            )
 
         return {
             metric.__name__: metric(
