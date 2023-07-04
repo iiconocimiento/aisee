@@ -382,6 +382,7 @@ class Trainer:
 
                 if phase == "val" and epoch_sm > best_sm:
                     best_sm = epoch_sm
+                    best_epoch = epoch + 1
                     best_model_wts = copy.deepcopy(self.base_model.model.state_dict())
                     torch.save(self.base_model.model.state_dict(), self.output_dir)
 
@@ -390,6 +391,6 @@ class Trainer:
 
         if self.verbose > 0:
             LOGGER.info(f"Training complete in {time_elapsed // 60:.0f}m {time_elapsed % 60:.0f}s")
-            LOGGER.info(f"Best val {self.checkpointing_metric}: {best_sm:4f}")
+            LOGGER.info(f"Best val {self.checkpointing_metric}: {best_sm:4f} in epoch {best_epoch}")
 
         self.base_model.model.load_state_dict(best_model_wts)
