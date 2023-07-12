@@ -7,6 +7,7 @@ from typing import TypeVar, Union
 import pandas as pd
 import torch
 from sklearn.metrics import accuracy_score, f1_score
+from torch.optim.lr_scheduler import ChainedScheduler
 from tqdm import tqdm
 
 from .utils import get_data_split, get_n_classes, get_n_classes_multilabel
@@ -164,6 +165,8 @@ class Trainer:
         criterion: type[Loss] = None,
         optimizer: type[Optimizer] = None,
         optimer_kwargs: dict = None,
+        schedulers: list = None,
+        callback = None,
     ) -> None:
         self.base_model = base_model
         self.output_dir = (
@@ -206,6 +209,8 @@ class Trainer:
         else:
             self.optimizer = torch.optim.Adam
         self.optimer_kwargs = optimer_kwargs if optimer_kwargs else {}
+        self.schedulers = schedulers
+        self.callback = callback
 
     def load_data_dict(self) -> dict[str, torch.utils.data.DataLoader]:
         """
@@ -297,10 +302,35 @@ class Trainer:
         best_sm = -100.0 if self.checkpointing_metric == "loss" else 0.0
         factor = -1 if self.checkpointing_metric == "loss" else 1
         self.hist = []
+        last_lr = self.lr
 
-        for epoch in range(self.num_epochs):
+        scheduler = None
+        schedulerRLROP = None
+        if self.schedulers:
+            list_schedulers = []
+            for sch in self.schedulers:
+                func = sch[0]
+                params = sch[1]
+                if "metric" in params:
+                    metric_ = params["metric"]
+                    params.pop('metric')
+                else:
+                    metric_ = None
+                schd = func(self.optimizer_up, **params)
+                if schd.__class__.__name__ == "ReduceLROnPlateau":
+                    schedulerRLROP = schd
+                    metric = metric_ if metric_ else print("Error")
+                else:
+                    list_schedulers.append(schd)
+
+                if len(list_schedulers) > 1:
+                    scheduler = ChainedScheduler(list_schedulers)
+                elif len(list_schedulers) == 1:
+                    scheduler = list_schedulers[0]
+
+        for epoch in range(1, self.num_epochs + 1):
             if self.verbose > 1:
-                LOGGER.info(f"Epoch {epoch + 1}/{self.num_epochs}")
+                LOGGER.info(f"Epoch {epoch}/{self.num_epochs}")
                 LOGGER.info("-" * 10)
 
             self.hist.append({"epoch": epoch})
@@ -369,22 +399,42 @@ class Trainer:
                 epoch_labels = epoch_labels.numpy(force=True)
                 epoch_acc = accuracy_score(epoch_labels, epoch_preds)
                 epoch_f1 = f1_score(epoch_labels, epoch_preds, average="macro")
+                epoch_lr = self.optimizer_up.param_groups[0]["lr"]
 
                 if self.verbose > 1:
+                    if last_lr != epoch_lr:
+                        LOGGER.info(f"New lr ={epoch_lr}")
+                        last_lr = epoch_lr
                     LOGGER.info(f"{phase} Loss: {epoch_loss:.4f} Acc: {epoch_acc:.4f}  F1: {epoch_f1:.4f}")
                     LOGGER.info("\n")
 
-                self.hist[epoch][phase + "_loss"] = epoch_loss
-                self.hist[epoch][phase + "_acc"] = epoch_acc
-                self.hist[epoch][phase + "_f1"] = epoch_f1
-
-                epoch_sm = self.hist[epoch][phase + "_" + self.checkpointing_metric] * factor
+                indx = epoch - 1
+                self.hist[indx][phase + "_loss"] = epoch_loss
+                self.hist[indx][phase + "_acc"] = epoch_acc
+                self.hist[indx][phase + "_f1"] = epoch_f1
+                self.hist[indx]["lr"] = epoch_lr
+                self.hist[indx]["time"] = time.time() - since
+                epoch_sm = self.hist[indx][phase + "_" + self.checkpointing_metric] * factor
 
                 if phase == "val" and epoch_sm > best_sm:
                     best_sm = epoch_sm
-                    best_epoch = epoch + 1
+                    best_epoch = epoch
                     best_model_wts = copy.deepcopy(self.base_model.model.state_dict())
                     torch.save(self.base_model.model.state_dict(), self.output_dir)
+            
+            if scheduler:
+                scheduler.step()
+                print("pass scheduler")
+            if schedulerRLROP:
+                value_metric = self.hist[indx]["val_" + metric]
+                schedulerRLROP.step(value_metric)
+                print("pass schedulerRLROP")
+            stop = False 
+            if self.callback:
+                stop = self.callback.eval_epoch(self.hist)
+            if stop:
+                print("Training callback stop")
+                break
 
         best_sm = best_sm * factor
         time_elapsed = time.time() - since
@@ -394,3 +444,27 @@ class Trainer:
             LOGGER.info(f"Best val {self.checkpointing_metric}: {best_sm:4f} in epoch {best_epoch}")
 
         self.base_model.model.load_state_dict(best_model_wts)
+
+
+class CallBackAll:
+    def __init__(self, csvfile: bool = True,
+                 early_stop_patience: int = None,
+                 timer_stop: int = None,
+                 start_from_epoch: int = 0,
+                 ):
+        self.csvfile = csvfile
+        self.early_stop_patience = early_stop_patience
+        self.time_stop = timer_stop
+
+    def eval_epoch(self, hist):
+        
+        stop = False
+        df = pd.DataFrame(hist)
+        if self.csvfile:
+            df.to_csv("df_training.csv", index=False)
+        if self.early_stop_patience:
+            no_improve = len(df) - df.val_loss.idxmin() - 1
+            stop = True if no_improve >= self.early_stop_patience else stop
+        if self.time_stop and df.iloc[-1, :]["time"] > self.time_stop:
+            stop = True
+        return stop 
