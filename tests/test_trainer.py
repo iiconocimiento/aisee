@@ -4,6 +4,12 @@ import pandas as pd
 import pytest
 import torch
 from huggingface_hub import snapshot_download
+from torch.optim.lr_scheduler import (
+    ConstantLR,
+    ExponentialLR,
+    LinearLR,
+    ReduceLROnPlateau,
+)
 
 from aisee import Trainer, VisionClassifier
 
@@ -39,18 +45,37 @@ MULTI_LABEL_DATAFRAME = pd.DataFrame(
 
 MODEL_TEST = "mobilenetv2_050"
 
+all_schedulers = [None,
+                  [(ReduceLROnPlateau, {"patience": 3, "metric": "f1"}),
+                   (LinearLR, {"start_factor": 1, "end_factor": 0.1, "total_iters": 5})],
+                  [(ReduceLROnPlateau, {"patience": 3, "metric": "f1"})],
+                  [(LinearLR, {"start_factor": 1, "end_factor": 0.1, "total_iters": 5})],
+                  [(ConstantLR, {"factor": 0.1, "total_iters": 2}),
+                   (ExponentialLR, {"gamma": 0.9})],
+                  ]
+
+all_schedulers_errors = [1,
+                         [1],
+                         [(1, {"value": 1})],
+                         [(LinearLR, 1)],
+                         [(ReduceLROnPlateau, {"patience": 3})],
+                         [(ReduceLROnPlateau, {"patience": 3, "metric": "f2"})],
+                         ]
+
 
 @pytest.mark.parametrize("checkpointing_metric", ["loss", "acc", "f1"])
 @pytest.mark.parametrize("shuffle", [False, True])
 @pytest.mark.parametrize("batch_size", [8, 20])
 @pytest.mark.parametrize("criterion", [None, torch.nn.CrossEntropyLoss()])
 @pytest.mark.parametrize("optimizer", [None, torch.optim.AdamW])
+@pytest.mark.parametrize("schedulers", all_schedulers)
 def test_train_path_model(
     checkpointing_metric,
     shuffle,
     batch_size,
     criterion,
     optimizer,
+    schedulers,
 ):
     """Check that Trainer is instantiated and train a model with path."""
     classf = VisionClassifier(model_name=MODEL_TEST, num_classes=2)
@@ -63,6 +88,7 @@ def test_train_path_model(
         criterion=criterion,
         optimizer=optimizer,
         shuffle=shuffle,
+        schedulers=schedulers,
     )
     trainer.train()
 
@@ -91,3 +117,30 @@ def test_train_multi_model():
     )
     trainer.train()
     assert isinstance(trainer.hist, list)
+
+
+def test_trainer_checkpointing_metric_not_suported_error():
+    """Check that Trainer raise a ValueError with bad checkpointing_metric."""
+    classf = VisionClassifier(model_name=MODEL_TEST, num_classes=2)
+
+    with pytest.raises(ValueError):
+        Trainer(
+            output_dir="test_trainer.pt",
+            base_model=classf,
+            data=SINGLE_LABEL_DATAFRAME,
+            checkpointing_metric="F2"
+        )
+
+
+@pytest.mark.parametrize("schedulers", all_schedulers_errors)
+def test_trainer_schedulers_not_suported_error(schedulers):
+    """Check that Trainer raise a ValueError with bad checkpointing_metric."""
+    classf = VisionClassifier(model_name=MODEL_TEST, num_classes=2)
+
+    with pytest.raises(ValueError):
+        Trainer(
+            output_dir="test_trainer.pt",
+            base_model=classf,
+            data=SINGLE_LABEL_DATAFRAME,
+            schedulers=schedulers,
+        )

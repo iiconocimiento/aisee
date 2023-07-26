@@ -15,6 +15,8 @@ from .vision_classifier import VisionClassifier
 
 Loss = TypeVar("LossFunction")
 Optimizer = TypeVar("Optimizer")
+lr_scheduler = TypeVar("lr_scheduler")
+
 
 LOGGER = logging.getLogger(__name__)
 LOGGER.setLevel(logging.INFO)
@@ -147,6 +149,13 @@ class Trainer:
 
     optimer_kwargs : dict, default=None
         Optimizer parameters.
+
+    schedulers : list[(scheduler, dict_scheduler_parameters)], default=None
+        Add lr_schedulers from pytorch.
+        Must be a list of tuples with two elements, the scheduler and a dictionary with
+        scheduler parameters with values without include optimizer.
+        For ReduceLROnPlateau the dictionary of parameters must include the metric
+        [f1, loss, acc].
     """
 
     def __init__(
@@ -165,7 +174,7 @@ class Trainer:
         criterion: type[Loss] = None,
         optimizer: type[Optimizer] = None,
         optimer_kwargs: dict = None,
-        schedulers: list = None,
+        schedulers: list[lr_scheduler, dict] = None,
         callback = None,
     ) -> None:
         self.base_model = base_model
@@ -209,7 +218,30 @@ class Trainer:
         else:
             self.optimizer = torch.optim.Adam
         self.optimer_kwargs = optimer_kwargs if optimer_kwargs else {}
+
+        if schedulers is not None:
+            if not isinstance(schedulers, list):
+                raise ValueError(
+                    "shedulers must be a list [(lr_scheduler, dict_schd_params)]")
+        
+            check_schd = [not (isinstance(tpl, tuple) and isinstance(tpl[0], type)
+            and isinstance(tpl[1], dict) and len(tpl[0].__module__.split(".")) > 2
+            and tpl[0].__module__.split(".")[2] == "lr_scheduler") for tpl in schedulers]
+            self.schedulers = schedulers
+            if any(check_schd):
+                raise ValueError("Check elements of schedulers list, see documentation.")
+            
+            for tpl in schedulers:
+                if tpl[0].__name__ == "ReduceLROnPlateau":
+                    if "metric" not in tpl[1]:
+                        raise ValueError("No metric parameter for ReduceLROnPlateau , see documentation.")
+                    if tpl[1]["metric"] not in ["loss", "acc", "f1"]:
+                        raise ValueError(
+                                "For ReduceLROnPlateau metric must be: ['loss', 'acc, 'f1'].",
+                                )
+                
         self.schedulers = schedulers
+
         self.callback = callback
 
     def load_data_dict(self) -> dict[str, torch.utils.data.DataLoader]:
@@ -311,18 +343,11 @@ class Trainer:
             for sch in self.schedulers:
                 func = sch[0]
                 params = sch[1]
-                if "metric" in params:
-                    metric_ = params["metric"]
-                    params.pop('metric')
+                if func.__name__ == "ReduceLROnPlateau":
+                    schd_metric = params.pop('metric')
+                    schedulerRLROP = func(self.optimizer_up, **params)
                 else:
-                    metric_ = None
-                schd = func(self.optimizer_up, **params)
-                if schd.__class__.__name__ == "ReduceLROnPlateau":
-                    schedulerRLROP = schd
-                    metric = metric_ if metric_ else print("Error")
-                else:
-                    list_schedulers.append(schd)
-
+                    list_schedulers.append(func(self.optimizer_up, **params))
                 if len(list_schedulers) > 1:
                     scheduler = ChainedScheduler(list_schedulers)
                 elif len(list_schedulers) == 1:
@@ -426,7 +451,7 @@ class Trainer:
                 scheduler.step()
                 print("pass scheduler")
             if schedulerRLROP:
-                value_metric = self.hist[indx]["val_" + metric]
+                value_metric = self.hist[indx]["val_" + schd_metric]
                 schedulerRLROP.step(value_metric)
                 print("pass schedulerRLROP")
             stop = False 
