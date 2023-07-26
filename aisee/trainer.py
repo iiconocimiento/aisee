@@ -175,7 +175,6 @@ class Trainer:
         optimizer: type[Optimizer] = None,
         optimer_kwargs: dict = None,
         schedulers: list[lr_scheduler, dict] = None,
-        callback = None,
     ) -> None:
         self.base_model = base_model
         self.output_dir = (
@@ -241,8 +240,6 @@ class Trainer:
                                 )
                 
         self.schedulers = schedulers
-
-        self.callback = callback
 
     def load_data_dict(self) -> dict[str, torch.utils.data.DataLoader]:
         """
@@ -449,17 +446,9 @@ class Trainer:
             
             if scheduler:
                 scheduler.step()
-                print("pass scheduler")
             if schedulerRLROP:
                 value_metric = self.hist[indx]["val_" + schd_metric]
                 schedulerRLROP.step(value_metric)
-                print("pass schedulerRLROP")
-            stop = False 
-            if self.callback:
-                stop = self.callback.eval_epoch(self.hist)
-            if stop:
-                print("Training callback stop")
-                break
 
         best_sm = best_sm * factor
         time_elapsed = time.time() - since
@@ -469,27 +458,3 @@ class Trainer:
             LOGGER.info(f"Best val {self.checkpointing_metric}: {best_sm:4f} in epoch {best_epoch}")
 
         self.base_model.model.load_state_dict(best_model_wts)
-
-
-class CallBackAll:
-    def __init__(self, csvfile: bool = True,
-                 early_stop_patience: int = None,
-                 timer_stop: int = None,
-                 start_from_epoch: int = 0,
-                 ):
-        self.csvfile = csvfile
-        self.early_stop_patience = early_stop_patience
-        self.time_stop = timer_stop
-
-    def eval_epoch(self, hist):
-        
-        stop = False
-        df = pd.DataFrame(hist)
-        if self.csvfile:
-            df.to_csv("df_training.csv", index=False)
-        if self.early_stop_patience:
-            no_improve = len(df) - df.val_loss.idxmin() - 1
-            stop = True if no_improve >= self.early_stop_patience else stop
-        if self.time_stop and df.iloc[-1, :]["time"] > self.time_stop:
-            stop = True
-        return stop 
