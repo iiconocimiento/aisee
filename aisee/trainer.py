@@ -222,14 +222,14 @@ class Trainer:
             if not isinstance(schedulers, list):
                 raise ValueError(
                     "shedulers must be a list [(lr_scheduler, dict_schd_params)]")
-        
+
             check_schd = [not (isinstance(tpl, tuple) and isinstance(tpl[0], type)
             and isinstance(tpl[1], dict) and len(tpl[0].__module__.split(".")) > 2
             and tpl[0].__module__.split(".")[2] == "lr_scheduler") for tpl in schedulers]
             self.schedulers = schedulers
             if any(check_schd):
                 raise ValueError("Check elements of schedulers list, see documentation.")
-            
+
             for tpl in schedulers:
                 if tpl[0].__name__ == "ReduceLROnPlateau":
                     if "metric" not in tpl[1]:
@@ -238,8 +238,7 @@ class Trainer:
                         raise ValueError(
                                 "For ReduceLROnPlateau metric must be: ['loss', 'acc, 'f1'].",
                                 )
-            
-                
+
         self.schedulers = schedulers if schedulers is None else schedulers.copy()
 
     def load_data_dict(self) -> dict[str, torch.utils.data.DataLoader]:
@@ -335,15 +334,16 @@ class Trainer:
         last_lr = self.lr
 
         scheduler = None
-        schedulerRLROP = None
+        scheduler_rlrop = None
         if self.schedulers:
             list_schedulers = []
             for sch in self.schedulers:
                 func = sch[0]
                 params = sch[1]
                 if func.__name__ == "ReduceLROnPlateau":
-                    schd_metric = params.pop('metric')
-                    schedulerRLROP = func(self.optimizer_up, **params)
+                    params2 = params.copy()
+                    schd_metric = params2.pop('metric')
+                    scheduler_rlrop = func(self.optimizer_up, **params2)
                 else:
                     list_schedulers.append(func(self.optimizer_up, **params))
                 if len(list_schedulers) > 1:
@@ -444,12 +444,12 @@ class Trainer:
                     best_epoch = epoch
                     best_model_wts = copy.deepcopy(self.base_model.model.state_dict())
                     torch.save(self.base_model.model.state_dict(), self.output_dir)
-            
+
             if scheduler:
                 scheduler.step()
-            if schedulerRLROP:
+            if scheduler_rlrop:
                 value_metric = self.hist[indx]["val_" + schd_metric]
-                schedulerRLROP.step(value_metric)
+                scheduler_rlrop.step(value_metric)
 
         best_sm = best_sm * factor
         time_elapsed = time.time() - since

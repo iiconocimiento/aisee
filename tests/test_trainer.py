@@ -45,6 +45,15 @@ MULTI_LABEL_DATAFRAME = pd.DataFrame(
 
 MODEL_TEST = "mobilenetv2_050"
 
+all_schedulers = [None,
+                  [(ReduceLROnPlateau, {"patience": 3, "metric": "f1"}),
+                   (LinearLR, {"start_factor": 1, "end_factor": 0.1, "total_iters": 5})],
+                  [(ReduceLROnPlateau, {"patience": 3, "metric": "f1"})],
+                  [(LinearLR, {"start_factor": 1, "end_factor": 0.1, "total_iters": 5})],
+                  [(ConstantLR, {"factor": 0.1, "total_iters": 2}),
+                   (ExponentialLR, {"gamma": 0.9})],
+                  ]
+
 all_schedulers_errors = [1,
                          [1],
                          [(1, {"value": 1})],
@@ -59,14 +68,7 @@ all_schedulers_errors = [1,
 @pytest.mark.parametrize("batch_size", [8, 20])
 @pytest.mark.parametrize("criterion", [None, torch.nn.CrossEntropyLoss()])
 @pytest.mark.parametrize("optimizer", [None, torch.optim.AdamW])
-@pytest.mark.parametrize("schedulers", [None,
-                  [(ReduceLROnPlateau, {"metric": "f1","patience": 2}),
-                   (LinearLR, {"start_factor": 1, "end_factor": 0.1, "total_iters": 5})],
-                  [(ReduceLROnPlateau, {"patience": 3, "metric": "f1"})],
-                  [(LinearLR, {"start_factor": 1, "end_factor": 0.1, "total_iters": 5})],
-                  [(ConstantLR, {"factor": 0.1, "total_iters": 2}),
-                   (ExponentialLR, {"gamma": 0.9})],
-                  ])
+@pytest.mark.parametrize("schedulers", all_schedulers)
 def test_train_path_model(
     checkpointing_metric,
     shuffle,
