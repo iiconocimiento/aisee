@@ -238,8 +238,9 @@ class Trainer:
                         raise ValueError(
                                 "For ReduceLROnPlateau metric must be: ['loss', 'acc, 'f1'].",
                                 )
+            
                 
-        self.schedulers = schedulers
+        self.schedulers = schedulers if schedulers is None else schedulers.copy()
 
     def load_data_dict(self) -> dict[str, torch.utils.data.DataLoader]:
         """

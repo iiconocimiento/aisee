@@ -45,21 +45,12 @@ MULTI_LABEL_DATAFRAME = pd.DataFrame(
 
 MODEL_TEST = "mobilenetv2_050"
 
-all_schedulers = [None,
-                  [(ReduceLROnPlateau, {"patience": 3, "metric": "f1"}),
-                   (LinearLR, {"start_factor": 1, "end_factor": 0.1, "total_iters": 5})],
-                  [(ReduceLROnPlateau, {"patience": 3, "metric": "f1"})],
-                  [(LinearLR, {"start_factor": 1, "end_factor": 0.1, "total_iters": 5})],
-                  [(ConstantLR, {"factor": 0.1, "total_iters": 2}),
-                   (ExponentialLR, {"gamma": 0.9})],
-                  ]
-
 all_schedulers_errors = [1,
                          [1],
                          [(1, {"value": 1})],
                          [(LinearLR, 1)],
-                         [(ReduceLROnPlateau, {"patience": 3})],
-                         [(ReduceLROnPlateau, {"patience": 3, "metric": "f2"})],
+                         [(ReduceLROnPlateau, {"patience": 4})],
+                         [(ReduceLROnPlateau, {"patience": 4, "metric": "f2"})],
                          ]
 
 
@@ -68,7 +59,14 @@ all_schedulers_errors = [1,
 @pytest.mark.parametrize("batch_size", [8, 20])
 @pytest.mark.parametrize("criterion", [None, torch.nn.CrossEntropyLoss()])
 @pytest.mark.parametrize("optimizer", [None, torch.optim.AdamW])
-@pytest.mark.parametrize("schedulers", all_schedulers)
+@pytest.mark.parametrize("schedulers", [None,
+                  [(ReduceLROnPlateau, {"metric": "f1","patience": 2}),
+                   (LinearLR, {"start_factor": 1, "end_factor": 0.1, "total_iters": 5})],
+                  [(ReduceLROnPlateau, {"patience": 3, "metric": "f1"})],
+                  [(LinearLR, {"start_factor": 1, "end_factor": 0.1, "total_iters": 5})],
+                  [(ConstantLR, {"factor": 0.1, "total_iters": 2}),
+                   (ExponentialLR, {"gamma": 0.9})],
+                  ])
 def test_train_path_model(
     checkpointing_metric,
     shuffle,
@@ -132,8 +130,8 @@ def test_trainer_checkpointing_metric_not_suported_error():
         )
 
 
-@pytest.mark.parametrize("schedulers", all_schedulers_errors)
-def test_trainer_schedulers_not_suported_error(schedulers):
+@pytest.mark.parametrize("schedulers_errors", all_schedulers_errors)
+def test_trainer_schedulers_not_suported_error(schedulers_errors):
     """Check that Trainer raise a ValueError with bad checkpointing_metric."""
     classf = VisionClassifier(model_name=MODEL_TEST, num_classes=2)
 
@@ -142,5 +140,5 @@ def test_trainer_schedulers_not_suported_error(schedulers):
             output_dir="test_trainer.pt",
             base_model=classf,
             data=SINGLE_LABEL_DATAFRAME,
-            schedulers=schedulers,
+            schedulers=schedulers_errors,
         )
