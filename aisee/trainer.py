@@ -13,7 +13,7 @@ from tqdm import tqdm
 from .utils import get_data_split, get_n_classes, get_n_classes_multilabel
 from .vision_classifier import VisionClassifier
 
-Loss = TypeVar("LossFunction")
+Loss = TypeVar("Loss")
 Optimizer = TypeVar("Optimizer")
 lr_scheduler = TypeVar("lr_scheduler")
 
@@ -239,7 +239,7 @@ class Trainer:
                                 "For ReduceLROnPlateau metric must be: ['loss', 'acc, 'f1'].",
                                 )
 
-        self.schedulers = schedulers if schedulers is None else schedulers.copy()
+        self.schedulers = schedulers
 
     def load_data_dict(self) -> dict[str, torch.utils.data.DataLoader]:
         """
@@ -327,6 +327,7 @@ class Trainer:
 
         since = time.time()
 
+        best_epoch = 0
         best_model_wts = copy.deepcopy(self.base_model.model.state_dict())
         best_sm = -100.0 if self.checkpointing_metric == "loss" else 0.0
         factor = -1 if self.checkpointing_metric == "loss" else 1

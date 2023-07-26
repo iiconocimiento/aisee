@@ -128,7 +128,7 @@ def test_trainer_checkpointing_metric_not_suported_error():
             output_dir="test_trainer.pt",
             base_model=classf,
             data=SINGLE_LABEL_DATAFRAME,
-            checkpointing_metric="F2"
+            checkpointing_metric="F2",
         )
 
 
