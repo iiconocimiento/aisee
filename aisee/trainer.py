@@ -201,10 +201,7 @@ class Trainer:
         self.shuffle = shuffle
         self.num_workers = num_workers
 
-        if not dict_data_transforms:
-            self.dict_data_transforms = self.base_model.create_default_transform()
-        else:
-            self.dict_data_transforms = dict_data_transforms
+        self.dict_data_transforms = dict_data_transforms or self.base_model.create_default_transform()
 
         if criterion:
             self.criterion = criterion
@@ -212,13 +209,12 @@ class Trainer:
             self.criterion = torch.nn.CrossEntropyLoss()
         else:
             self.criterion = torch.nn.BCELoss()
-        if optimizer:
-            self.optimizer = optimizer
-        else:
-            self.optimizer = torch.optim.Adam
+
+        self.optimizer = optimizer or torch.optim.Adam
+  
         self.optimer_kwargs = optimer_kwargs if optimer_kwargs else {}
 
-        if schedulers is not None:
+        if schedulers:
             if not isinstance(schedulers, list):
                 raise ValueError(
                     "shedulers must be a list [(lr_scheduler, dict_schd_params)]")
