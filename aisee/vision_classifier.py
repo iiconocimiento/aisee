@@ -415,7 +415,7 @@ class VisionClassifier:
                 data_transform,
                 self.class_to_idx,
             )
-        
+
         elif isinstance(data, np.ndarray):
             image_dataset = DatasetFromNumpy(data, transform=data_transform)
 

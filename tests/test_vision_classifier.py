@@ -34,11 +34,12 @@ SINGLE_LABEL_DATAFRAME = pd.DataFrame(
     columns=["path", "label", "fold"],
 )
 
-numpy_image1 = Image.open(f"{TEST_PATH}/resources/images/train/cat/cat1.jpg")
-shape = numpy_image1.shape
-numpy_one_image = numpy_image1.reshape(1, shape[0], shape[1], 3)
+numpy_image1 = Image.open(f"{TEST_PATH}/resources/images/val/cat/cat3.jpg")
+numpy_one_image = np.array(numpy_image1, "uint8")
+shape = numpy_one_image.shape
+numpy_one_image = numpy_one_image.reshape(1, shape[0], shape[1], 3)
 numpy_image1 = np.array(numpy_image1.resize((300, 300)), "uint8")
-numpy_image2 = Image.open(f"{TEST_PATH}/resources/images/train/dog/dog1.jpg")
+numpy_image2 = Image.open(f"{TEST_PATH}/resources/images/val/dog/dog3.jpg")
 numpy_image2 = np.array(numpy_image2.resize((300, 300)), "uint8")
 numpy_data = np.stack([numpy_image1, numpy_image2]*8)
 
@@ -91,9 +92,8 @@ def test_vision_classifier_load_model_custom_weights():
                                              ("numpy_one_image", numpy_one_image),
                                              ("numpy_data", numpy_data),
                                              ("path_one_image", f"{TEST_PATH}/resources/images/train/cat/cat1.jpg"),
-                                             ("path_folder", f"{TEST_PATH}/resources/images/val")
-                                             ]
-)
+                                             ("path_folder", f"{TEST_PATH}/resources/images/val"),
+                                             ])
 def test_vision_classifier_predict_single_label(data_type, data):
     """Check that VisionClassifier predict single label problem with Pandas Series."""
     vc = VisionClassifier(
@@ -105,8 +105,9 @@ def test_vision_classifier_predict_single_label(data_type, data):
     if data_type == "path_one_image":
         data_length = 1
     elif data_type == "path_folder":
-        _, _, files = next(os.walk(data))
-        data_length = len(files)
+        data_length = 0
+        for _, _, files in os.walk(data):
+            data_length += len(files)
     else:
         data_length = len(data)
 
@@ -128,6 +129,7 @@ def test_vision_classifier_predict_single_label(data_type, data):
     assert all(
         (predictions[0]["probabilities"] >= 0) & (predictions[0]["probabilities"] <= 1),
     )
+
 
 def test_vision_predict_custom_weights():
     """Check that VisionClassifier predict single label problem with custom weights."""

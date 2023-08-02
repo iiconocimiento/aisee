@@ -367,6 +367,6 @@ class DatasetFromNumpy(torch.utils.data.Dataset):
             img = self.transform(img)
 
         label = np.nan
-        path = np.nan
+        path = "N/A"
 
         return img, label, path
