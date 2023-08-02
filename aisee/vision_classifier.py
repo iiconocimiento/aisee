@@ -430,7 +430,7 @@ class VisionClassifier:
                 )
         else:
             raise ValueError(
-                "Data must be a valid directory path (str), an image path (str) or a Pandas Dataframe.",
+                "Data must be a valid directory path (str), an image path (str) a Pandas Dataframe or numpy array.",
             )
 
         return torch.utils.data.DataLoader(

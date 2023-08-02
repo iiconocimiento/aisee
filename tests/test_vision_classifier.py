@@ -34,14 +34,11 @@ SINGLE_LABEL_DATAFRAME = pd.DataFrame(
     columns=["path", "label", "fold"],
 )
 
-numpy_image1 = Image.open(f"{TEST_PATH}/resources/images/val/cat/cat3.jpg")
-numpy_one_image = np.array(numpy_image1, "uint8")
-shape = numpy_one_image.shape
-numpy_one_image = numpy_one_image.reshape(1, shape[0], shape[1], 3)
-numpy_image1 = np.array(numpy_image1.resize((300, 300)), "uint8")
-numpy_image2 = Image.open(f"{TEST_PATH}/resources/images/val/dog/dog3.jpg")
-numpy_image2 = np.array(numpy_image2.resize((300, 300)), "uint8")
-numpy_data = np.stack([numpy_image1, numpy_image2]*8)
+NUMPY_IMAGE1 = Image.open(f"{TEST_PATH}/resources/images/val/cat/cat3.jpg")
+NUMPY_IMAGE1 = np.array(NUMPY_IMAGE1.resize((800, 800)), "uint8")
+NUMPY_IMAGE2 = Image.open(f"{TEST_PATH}/resources/images/val/dog/dog3.jpg")
+NUMPY_IMAGE2 = np.array(NUMPY_IMAGE2.resize((800, 800)), "uint8")
+NUMPY_DATA = np.stack([NUMPY_IMAGE1, NUMPY_IMAGE2]*8)
 
 MODEL_TEST = "mobilenetv2_050"
 MODEL_TEST_COMPOSITE_CLASSIFIER = "vgg11_bn"
@@ -89,8 +86,7 @@ def test_vision_classifier_load_model_custom_weights():
 
 @pytest.mark.parametrize("data_type, data", [("pd_series", SINGLE_LABEL_DATAFRAME["path"]),
                                              ("pd_df", SINGLE_LABEL_DATAFRAME),
-                                             ("numpy_one_image", numpy_one_image),
-                                             ("numpy_data", numpy_data),
+                                             ("NUMPY_DATA", NUMPY_DATA),
                                              ("path_one_image", f"{TEST_PATH}/resources/images/train/cat/cat1.jpg"),
                                              ("path_folder", f"{TEST_PATH}/resources/images/val"),
                                              ])
