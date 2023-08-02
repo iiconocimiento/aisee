@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 import pytest
 from huggingface_hub import snapshot_download
+from PIL import Image
 from sklearn.metrics import (
     accuracy_score,
     f1_score,
@@ -32,6 +33,14 @@ SINGLE_LABEL_DATAFRAME = pd.DataFrame(
     ],
     columns=["path", "label", "fold"],
 )
+
+numpy_image1 = Image.open(f"{TEST_PATH}/resources/images/train/cat/cat1.jpg")
+shape = numpy_image1.shape
+numpy_one_image = numpy_image1.reshape(1, shape[0], shape[1], 3)
+numpy_image1 = np.array(numpy_image1.resize((300, 300)), "uint8")
+numpy_image2 = Image.open(f"{TEST_PATH}/resources/images/train/dog/dog1.jpg")
+numpy_image2 = np.array(numpy_image2.resize((300, 300)), "uint8")
+numpy_data = np.stack([numpy_image1, numpy_image2]*8)
 
 MODEL_TEST = "mobilenetv2_050"
 MODEL_TEST_COMPOSITE_CLASSIFIER = "vgg11_bn"
@@ -77,7 +86,15 @@ def test_vision_classifier_load_model_custom_weights():
     assert isinstance(vc, VisionClassifier)
 
 
-def test_vision_classifier_predict_single_label_series():
+@pytest.mark.parametrize("data_type, data", [("pd_series", SINGLE_LABEL_DATAFRAME["path"]),
+                                             ("pd_df", SINGLE_LABEL_DATAFRAME),
+                                             ("numpy_one_image", numpy_one_image),
+                                             ("numpy_data", numpy_data),
+                                             ("path_one_image", f"{TEST_PATH}/resources/images/train/cat/cat1.jpg"),
+                                             ("path_folder", f"{TEST_PATH}/resources/images/val")
+                                             ]
+)
+def test_vision_classifier_predict_single_label(data_type, data):
     """Check that VisionClassifier predict single label problem with Pandas Series."""
     vc = VisionClassifier(
         model_name=MODEL_TEST,
@@ -85,37 +102,17 @@ def test_vision_classifier_predict_single_label_series():
         task="single_label",
     )
 
-    predictions = vc.predict(SINGLE_LABEL_DATAFRAME["path"])
+    if data_type == "path_one_image":
+        data_length = 1
+    elif data_type == "path_folder":
+        _, _, files = next(os.walk(data))
+        data_length = len(files)
+    else:
+        data_length = len(data)
 
-    assert len(predictions) == len(SINGLE_LABEL_DATAFRAME)
+    predictions = vc.predict(data)
 
-    for pred in predictions:
-        assert all(
-            key in pred
-            for key in ["image_path", "probabilities", "prediction", "real_label"]
-        )
-
-    assert isinstance(predictions[0]["image_path"], str)
-
-    for key in ["probabilities", "prediction", "real_label"]:
-        assert isinstance(predictions[0][key], np.ndarray)
-
-    assert all(
-        (predictions[0]["probabilities"] >= 0) & (predictions[0]["probabilities"] <= 1),
-    )
-
-
-def test_vision_classifier_predict_single_label_dataframe():
-    """Check that VisionClassifier predict single label problem with Pandas DataFrame."""
-    vc = VisionClassifier(
-        model_name=MODEL_TEST,
-        num_classes=2,
-        task="single_label",
-    )
-
-    predictions = vc.predict(SINGLE_LABEL_DATAFRAME)
-
-    assert len(predictions) == len(SINGLE_LABEL_DATAFRAME)
+    assert len(predictions) == data_length
 
     for pred in predictions:
         assert all(
@@ -131,68 +128,6 @@ def test_vision_classifier_predict_single_label_dataframe():
     assert all(
         (predictions[0]["probabilities"] >= 0) & (predictions[0]["probabilities"] <= 1),
     )
-
-
-def test_vision_classifier_predict_single_label_one_image():
-    """Check that VisionClassifier predict single label problem with one image."""
-    vc = VisionClassifier(
-        model_name=MODEL_TEST,
-        num_classes=2,
-        task="single_label",
-    )
-
-    predictions = vc.predict(f"{TEST_PATH}/resources/images/train/cat/cat1.jpg")
-
-    assert len(predictions) == 1
-
-    for pred in predictions:
-        assert all(
-            key in pred
-            for key in ["image_path", "probabilities", "prediction", "real_label"]
-        )
-    assert isinstance(predictions[0]["image_path"], str)
-
-    for key in ["probabilities", "prediction", "real_label"]:
-        assert isinstance(predictions[0][key], np.ndarray)
-
-    assert all(
-        (predictions[0]["probabilities"] >= 0) & (predictions[0]["probabilities"] <= 1),
-    )
-
-
-def test_vision_classifier_predict_single_label_path():
-    """Check that VisionClassifier predict single label problem with path to directory."""
-    vc = VisionClassifier(
-        model_name=MODEL_TEST,
-        num_classes=2,
-        task="single_label",
-    )
-
-    data_dir = f"{TEST_PATH}/resources/images/val"
-
-    number_of_images = 0
-    for _, _, files in os.walk(data_dir):
-        number_of_images += len(files)
-
-    predictions = vc.predict(data_dir)
-
-    assert len(predictions) == number_of_images
-
-    for pred in predictions:
-        assert all(
-            key in pred
-            for key in ["image_path", "probabilities", "prediction", "real_label"]
-        )
-
-    assert isinstance(predictions[0]["image_path"], str)
-
-    for key in ["probabilities", "prediction", "real_label"]:
-        assert isinstance(predictions[0][key], np.ndarray)
-
-    assert all(
-        (predictions[0]["probabilities"] >= 0) & (predictions[0]["probabilities"] <= 1),
-    )
-
 
 def test_vision_predict_custom_weights():
     """Check that VisionClassifier predict single label problem with custom weights."""

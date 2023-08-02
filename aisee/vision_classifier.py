@@ -15,6 +15,7 @@ from torchvision import transforms
 from .custom_datasets import (
     DatasetFromDataFrame,
     DatasetFromFolder,
+    DatasetFromNumpy,
     DatasetFromSingleImage,
 )
 
@@ -295,7 +296,7 @@ class VisionClassifier:
 
     def create_dataloader(
         self,
-        data: Union[pd.Series, pd.DataFrame, str],
+        data: Union[pd.Series, pd.DataFrame, str, np.ndarray],
         num_workers: int = 2,
         data_transform: transforms.Compose = None,
         batch_size: int = 8,
@@ -306,8 +307,10 @@ class VisionClassifier:
 
         Parameters
         ----------
-        data : pandas.DataFrame or str
-            A DataFrame or a string which contains the training data:
+        data : pandas.DataFrame, str or numpy.ndarray
+            Numpy array images only for predict.
+
+            A DataFrame, a string, or array which contains the data:
 
         - If it is a dataframe:
             - If it is a multiclass problem: the dataframe must contain a `path`
@@ -385,6 +388,9 @@ class VisionClassifier:
                     ├── dog1.jpg
                     └── dog2.jpg
 
+        - If it is a numpy array it must be a numpy representation of images:
+        np.array(nº images, height, width, channels)
+
         num_workers : int, default=2
             Subprocesses to use for data loading.
         data_transform : torchvision.transforms.Compose, default=None
@@ -409,6 +415,10 @@ class VisionClassifier:
                 data_transform,
                 self.class_to_idx,
             )
+        
+        elif isinstance(data, np.ndarray):
+            image_dataset = DatasetFromNumpy(data, transform=data_transform)
+
         elif isinstance(data, (str, Path)) and Path(data).exists():
             if Path(data).is_file():
                 image_dataset = DatasetFromSingleImage(data, transform=data_transform)
@@ -442,8 +452,8 @@ class VisionClassifier:
 
         Parameters
         ----------
-        data : pandas.DataFrame or str
-            It must be a dataframe or a string:
+        data : pandas.DataFrame, str or numpy.ndarray
+            It must be a dataframe a string or numpy.ndarray:
 
             - If it is a dataframe:
                 - If it is a multiclass problem: the dataframe must contain a `path`
@@ -507,6 +517,9 @@ class VisionClassifier:
                     └── dog
                         ├── dog1.jpg
                         └── dog2.jpg
+
+            - If it is a numpy array it must be a numpy representation of images:
+            np.array(nº images, height, width, channels)
 
         num_workers : int, default=2
             Subprocesses to use for data loading.
