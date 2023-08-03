@@ -327,9 +327,13 @@ class DatasetFromSingleImage(torch.utils.data.Dataset):
 
         return img, label, self.data
 
+
 class DatasetFromNumpy(torch.utils.data.Dataset):
     """
     Image Dataset for Numpy data.
+
+    This class only works for make predictions.
+    Return np.nan for label and 'N/A' for path.
 
     Parameters
     ----------
