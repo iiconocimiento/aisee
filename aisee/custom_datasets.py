@@ -332,7 +332,7 @@ class DatasetFromNumpy(torch.utils.data.Dataset):
     """
     Image Dataset for Numpy data.
 
-    This class only works for make predictions.
+    This class only works for making predictions.
     Return np.nan for label and 'N/A' for path.
 
     Parameters
