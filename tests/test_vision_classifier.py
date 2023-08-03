@@ -334,3 +334,15 @@ def test_vision_classifier_missing_columns_error(task, data):
 
     with pytest.raises(ValueError):
         vc.predict(data)
+
+
+@pytest.mark.parametrize("rgb", [False, True])
+@pytest.mark.parametrize("resize", [None, (600, 600)])
+def test_numpy_image_from_jpg(rgb, resize):
+    """Check util function numpy_image_from_jpg."""
+    img_array = numpy_image_from_jpg(
+        f"{TEST_PATH}/resources/images/val/cat/cat3.jpg",
+        rgb=rgb,
+        resize=resize)
+
+    assert isinstance(img_array, np.ndarray)
