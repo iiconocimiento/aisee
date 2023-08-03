@@ -5,7 +5,6 @@ import numpy as np
 import pandas as pd
 import pytest
 from huggingface_hub import snapshot_download
-from PIL import Image
 from sklearn.metrics import (
     accuracy_score,
     f1_score,
@@ -14,6 +13,7 @@ from sklearn.metrics import (
 )
 
 from aisee import VisionClassifier
+from aisee.utils import numpy_image_from_jpg
 
 TEST_PATH = Path(__file__).resolve().parent
 if not Path(TEST_PATH, "resources").exists():
@@ -34,10 +34,12 @@ SINGLE_LABEL_DATAFRAME = pd.DataFrame(
     columns=["path", "label", "fold"],
 )
 
-NUMPY_IMAGE1 = Image.open(f"{TEST_PATH}/resources/images/val/cat/cat3.jpg")
-NUMPY_IMAGE1 = np.array(NUMPY_IMAGE1.resize((800, 800)), "uint8")
-NUMPY_IMAGE2 = Image.open(f"{TEST_PATH}/resources/images/val/dog/dog3.jpg")
-NUMPY_IMAGE2 = np.array(NUMPY_IMAGE2.resize((800, 800)), "uint8")
+NUMPY_IMAGE1 = numpy_image_from_jpg(
+    f"{TEST_PATH}/resources/images/val/cat/cat3.jpg",
+    resize=(800, 800))
+NUMPY_IMAGE2 = numpy_image_from_jpg(
+    f"{TEST_PATH}/resources/images/val/dog/dog3.jpg",
+    resize=(800, 800))
 NUMPY_DATA = np.stack([NUMPY_IMAGE1, NUMPY_IMAGE2]*8)
 
 MODEL_TEST = "mobilenetv2_050"
