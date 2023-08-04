@@ -12,7 +12,7 @@ from tqdm import tqdm
 from .utils import get_data_split, get_n_classes, get_n_classes_multilabel
 from .vision_classifier import VisionClassifier
 
-Loss = TypeVar("LossFunction")
+Loss = TypeVar("Loss")
 Optimizer = TypeVar("Optimizer")
 
 LOGGER = logging.getLogger(__name__)
