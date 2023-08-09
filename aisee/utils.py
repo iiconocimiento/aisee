@@ -3,6 +3,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+from PIL import Image
 
 
 def check_single_label_data(data):
@@ -181,6 +182,33 @@ def check_multilabel_df(df):
                 f"Column '{col}' has values less than 0, values must be between 0 and 1.",
             )
 
+def numpy_image_from_jpg(
+        path: str,
+        rgb: bool = True,
+        resize: tuple[int, int] = None) -> np.ndarray:
+    """
+    Get numpy array from image path.
+
+    Parameters
+    ----------
+    path : str
+        Image path
+    rgb : bool, default=True
+        Convert the image to RGB, if it is not.
+    resize: tuple[int, int], default=None
+        Resize image.
+
+    Returns
+    -------
+    n : np.ndarray
+        Numerical representation of an image
+    """
+    image = Image.open(path)
+    if image.mode != 'RGB' and rgb:
+        image = image.convert(mode='RGB')
+    if resize:
+        image = image.resize(resize)
+    return np.array(image, "uint8")
 
 def check_metric(value, options, msg):
     if value not in options:

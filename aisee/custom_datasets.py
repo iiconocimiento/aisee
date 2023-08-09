@@ -326,3 +326,51 @@ class DatasetFromSingleImage(torch.utils.data.Dataset):
         label = np.nan
 
         return img, label, self.data
+
+
+class DatasetFromNumpy(torch.utils.data.Dataset):
+    """
+    Image Dataset for Numpy data.
+
+    This class only works for making predictions.
+    Return np.nan for label and 'N/A' for path.
+
+    Parameters
+    ----------
+    data : np.ndarray
+        Image as numpy object.
+
+    transform : torchvision.transforms.Compose
+    """
+
+    def __init__(self, data: np.ndarray, transform: transforms.Compose = None) -> None:
+        self.data = data
+        self.transform = transform
+
+    def __len__(self) -> int:
+        """Return data size."""
+        return len(self.data)
+
+    def __getitem__(self, idx: int) -> tuple[torch.Tensor, float, str]:
+        """
+        Return the image, label and image path.
+
+        Parameters
+        ----------
+        index : int
+            Index of the element to return.
+
+        Returns
+        -------
+        result : tuple[torch.Tensor, float, str]
+            The tuple containes: (image, label, image path)
+        """
+        img = Image.fromarray(self.data[idx])
+
+        if self.transform:
+            img = self.transform(img)
+
+        label = np.nan
+        path = "N/A"
+
+        return img, label, path
