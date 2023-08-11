@@ -336,7 +336,7 @@ class Trainer:
         best_epoch = 0
         best_model_wts = copy.deepcopy(self.base_model.model.state_dict())
         best_sm = -100.0 if self.checkpointing_metric == "loss" else 0.0
-        factor = 1 +2 * (best_sm/100)
+        factor = 1 + 2 * (best_sm/100)
         self.hist = []
         last_lr = self.lr
 
