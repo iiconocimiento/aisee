@@ -336,7 +336,7 @@ class Trainer:
         best_epoch = 0
         best_model_wts = copy.deepcopy(self.base_model.model.state_dict())
         best_sm = -100.0 if self.checkpointing_metric == "loss" else 0.0
-        factor = 1 + 2 * (best_sm/100)
+        factor = -1 if self.checkpointing_metric == "loss" else 1
         self.hist = []
         last_lr = self.lr
 
@@ -398,9 +398,8 @@ class Trainer:
                         if is_inception and phase == "train":
                             # From https://discuss.pytorch.org/t/how-to-optimize-inception-model-with-auxiliary-classifiers/7958
                             outputs, aux_outputs = self.base_model.model(inputs)
-                            if multilabel:
-                                outputs = torch.sigmoid(outputs)
-                                aux_outputs = torch.sigmoid(aux_outputs)
+                            outputs = torch.sigmoid(outputs) if multilabel else outputs
+                            aux_outputs = torch.sigmoid(aux_outputs) if multilabel else aux_outputs
                             loss1 = self.criterion(outputs, labels)
                             loss2 = self.criterion(aux_outputs, labels)
                             loss = loss1 + 0.4 * loss2
