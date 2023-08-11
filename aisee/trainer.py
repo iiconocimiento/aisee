@@ -22,11 +22,12 @@ LOGGER = logging.getLogger(__name__)
 LOGGER.setLevel(logging.INFO)
 LOGGER.addHandler(logging.StreamHandler(sys.stdout))
 
+
 class ParamFilter(logging.Filter):
-    """
-    Add disable parameter for LOGGER
-    """
+    """Class to add disable parameter for LOGGER."""
+
     def filter(self, record):
+        """Parameter function."""
         if hasattr(record, 'disable') and record.disable:
             return False
         return True
@@ -302,7 +303,7 @@ class Trainer:
                 params_name.append(name)
 
         LOGGER.info("Params to learn:", extra={'disable': self.verbose < 1})
-        LOGGER.info("\n".join(params_name) + "\n", 
+        LOGGER.info("\n".join(params_name) + "\n",
                     extra={'disable': self.verbose < 1})
 
         self.optimizer_up = self.optimizer(
@@ -335,7 +336,7 @@ class Trainer:
         best_epoch = 0
         best_model_wts = copy.deepcopy(self.base_model.model.state_dict())
         best_sm = -100.0 if self.checkpointing_metric == "loss" else 0.0
-        factor = -1 if self.checkpointing_metric == "loss" else 1
+        factor = 1 +2 * (best_sm/100)
         self.hist = []
         last_lr = self.lr
 
