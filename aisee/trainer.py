@@ -346,7 +346,7 @@ class Trainer:
                 elif len(list_schedulers) == 1:
                     scheduler = list_schedulers[0]
         return scheduler, scheduler_rlrop, schd_metric
-    
+
     def _train_model(self):
         """
         Train model.
