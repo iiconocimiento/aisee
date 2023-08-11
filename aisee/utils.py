@@ -209,7 +209,3 @@ def numpy_image_from_jpg(
     if resize:
         image = image.resize(resize)
     return np.array(image, "uint8")
-
-def check_metric(value, options, msg):
-    if value not in options:
-        raise ValueError(msg)
