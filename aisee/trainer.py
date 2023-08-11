@@ -318,30 +318,18 @@ class Trainer:
 
         return self
 
-    def _train_model(self):
+    def create_scheduler(self):
         """
-        Train model.
+        Create lr_schedulers.
 
         Returns
         -------
-        m : trained model.
-        h: list of dict, metric for each epoch
+        s1 : schedulers.
+        s1 : scheduler for ReduceLROnPlateau
         """
-        dataloaders = self.load_data_dict()
-        is_inception = False
-        multilabel = self.base_model.task == "multi_label"
-
-        since = time.time()
-
-        best_epoch = 0
-        best_model_wts = copy.deepcopy(self.base_model.model.state_dict())
-        best_sm = -100.0 if self.checkpointing_metric == "loss" else 0.0
-        factor = -1 if self.checkpointing_metric == "loss" else 1
-        self.hist = []
-        last_lr = self.lr
-
         scheduler = None
         scheduler_rlrop = None
+        schd_metric = None
         if self.schedulers:
             list_schedulers = []
             for sch in self.schedulers:
@@ -357,6 +345,31 @@ class Trainer:
                     scheduler = ChainedScheduler(list_schedulers)
                 elif len(list_schedulers) == 1:
                     scheduler = list_schedulers[0]
+        return scheduler, scheduler_rlrop, schd_metric
+    
+    def _train_model(self):
+        """
+        Train model.
+
+        Returns
+        -------
+        m : trained model.
+        h : list of dict, metric for each epoch
+        """
+        dataloaders = self.load_data_dict()
+        is_inception = False
+        multilabel = self.base_model.task == "multi_label"
+
+        since = time.time()
+
+        best_epoch = 0
+        best_model_wts = copy.deepcopy(self.base_model.model.state_dict())
+        best_sm = -100.0 if self.checkpointing_metric == "loss" else 0.0
+        factor = -1 if self.checkpointing_metric == "loss" else 1
+        self.hist = []
+        last_lr = self.lr
+
+        scheduler, scheduler_rlrop, schd_metric = self.create_scheduler()
 
         for epoch in range(1, self.num_epochs + 1):
             LOGGER.info(f"Epoch {epoch}/{self.num_epochs}",
@@ -398,8 +411,9 @@ class Trainer:
                         if is_inception and phase == "train":
                             # From https://discuss.pytorch.org/t/how-to-optimize-inception-model-with-auxiliary-classifiers/7958
                             outputs, aux_outputs = self.base_model.model(inputs)
-                            outputs = torch.sigmoid(outputs) if multilabel else outputs
-                            aux_outputs = torch.sigmoid(aux_outputs) if multilabel else aux_outputs
+                            if multilabel:
+                                outputs = torch.sigmoid(outputs)
+                                aux_outputs = torch.sigmoid(aux_outputs)
                             loss1 = self.criterion(outputs, labels)
                             loss2 = self.criterion(aux_outputs, labels)
                             loss = loss1 + 0.4 * loss2
