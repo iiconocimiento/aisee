@@ -22,7 +22,21 @@ LOGGER = logging.getLogger(__name__)
 LOGGER.setLevel(logging.INFO)
 LOGGER.addHandler(logging.StreamHandler(sys.stdout))
 
+class ParamFilter(logging.Filter):
+    """
+    Add disable parameter for LOGGER
+    """
+    def filter(self, record):
+        if hasattr(record, 'disable') and record.disable:
+            return False
+        return True
 
+param_filter = ParamFilter()
+LOGGER.addFilter(param_filter)
+
+
+loss_functions = {"single_label": torch.nn.CrossEntropyLoss(),
+                  "multi_label": torch.nn.BCELoss()}
 class Trainer:
     """
     Train a model from VisionClassifier.
@@ -179,8 +193,8 @@ class Trainer:
         self.base_model = base_model
         self.output_dir = (
             output_dir
-            if output_dir
-            else "weights_"
+            or
+            "weights_"
             + base_model.model_name
             + "_"
             + time.strftime("%Y%m%d_%H%M%S")
@@ -203,16 +217,11 @@ class Trainer:
 
         self.dict_data_transforms = dict_data_transforms or self.base_model.create_default_transform()
 
-        if criterion:
-            self.criterion = criterion
-        elif self.base_model.task == "single_label":
-            self.criterion = torch.nn.CrossEntropyLoss()
-        else:
-            self.criterion = torch.nn.BCELoss()
+        self.criterion = criterion or loss_functions[self.base_model.task]
 
         self.optimizer = optimizer or torch.optim.Adam
-  
-        self.optimer_kwargs = optimer_kwargs if optimer_kwargs else {}
+
+        self.optimer_kwargs = optimer_kwargs or {}
 
         if schedulers:
             if not isinstance(schedulers, list):
@@ -277,9 +286,9 @@ class Trainer:
         -------
         self
         """
-        if self.verbose > 1:
-            LOGGER.info("Initializing Dataloaders...")
-            LOGGER.info("\n")
+        LOGGER.info("Initializing Dataloaders...",
+                    extra={'disable': self.verbose < 2})
+        LOGGER.info("\n", extra={'disable': self.verbose < 2})
 
         X = self.load_data_dict()
 
@@ -292,9 +301,9 @@ class Trainer:
                 params_to_update.append(param)
                 params_name.append(name)
 
-        if self.verbose > 0:
-            LOGGER.info("Params to learn:")
-            LOGGER.info("\n".join(params_name) + "\n")
+        LOGGER.info("Params to learn:", extra={'disable': self.verbose < 1})
+        LOGGER.info("\n".join(params_name) + "\n", 
+                    extra={'disable': self.verbose < 1})
 
         self.optimizer_up = self.optimizer(
             params_to_update,
@@ -349,9 +358,9 @@ class Trainer:
                     scheduler = list_schedulers[0]
 
         for epoch in range(1, self.num_epochs + 1):
-            if self.verbose > 1:
-                LOGGER.info(f"Epoch {epoch}/{self.num_epochs}")
-                LOGGER.info("-" * 10)
+            LOGGER.info(f"Epoch {epoch}/{self.num_epochs}",
+                        extra={'disable': self.verbose < 2})
+            LOGGER.info("-" * 10, extra={'disable': self.verbose < 2})
 
             self.hist.append({"epoch": epoch})
 
@@ -421,12 +430,14 @@ class Trainer:
                 epoch_f1 = f1_score(epoch_labels, epoch_preds, average="macro")
                 epoch_lr = self.optimizer_up.param_groups[0]["lr"]
 
-                if self.verbose > 1:
-                    if last_lr != epoch_lr:
-                        LOGGER.info(f"New lr ={epoch_lr}")
-                        last_lr = epoch_lr
-                    LOGGER.info(f"{phase} Loss: {epoch_loss:.4f} Acc: {epoch_acc:.4f}  F1: {epoch_f1:.4f}")
-                    LOGGER.info("\n")
+                LOGGER.info(f"New lr ={epoch_lr}",
+                            extra={'disable': (self.verbose < 2
+                                                    or last_lr == epoch_lr
+                                                    or phase != "train")})
+                last_lr = epoch_lr
+                LOGGER.info(f"{phase} Loss: {epoch_loss:.4f} Acc: {epoch_acc:.4f}  F1: {epoch_f1:.4f}",
+                            extra={'disable': self.verbose < 2})
+                LOGGER.info("\n", extra={'disable': self.verbose < 2})
 
                 indx = epoch - 1
                 self.hist[indx][phase + "_loss"] = epoch_loss
@@ -451,8 +462,9 @@ class Trainer:
         best_sm = best_sm * factor
         time_elapsed = time.time() - since
 
-        if self.verbose > 0:
-            LOGGER.info(f"Training complete in {time_elapsed // 60:.0f}m {time_elapsed % 60:.0f}s")
-            LOGGER.info(f"Best val {self.checkpointing_metric}: {best_sm:4f} in epoch {best_epoch}")
+        LOGGER.info(f"Training complete in {time_elapsed // 60:.0f}m {time_elapsed % 60:.0f}s",
+                    extra={'disable': self.verbose < 1})
+        LOGGER.info(f"Best val {self.checkpointing_metric}: {best_sm:4f} in epoch {best_epoch}",
+                    extra={'disable': self.verbose < 1})
 
         self.base_model.model.load_state_dict(best_model_wts)
