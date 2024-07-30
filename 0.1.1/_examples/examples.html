@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>API reference &#8212; aisee  documentation</title>
+    <title>Examples &#8212; aisee  documentation</title>
   
   
   
@@ -41,11 +41,11 @@
     <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/design-tabs.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/modules';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_examples/examples';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="AISee Package" href="aisee.html" />
-    <link rel="prev" title="Welcome to AISee’s documentation!" href="../index.html" />
+    <link rel="next" title="Data-Loaders" href="data_loader.html" />
+    <link rel="prev" title="AISee Package" href="../_modules/aisee.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -133,15 +133,15 @@
   </p>
   <ul class="bd-navbar-elements navbar-nav">
     
-                    <li class="nav-item current active">
-                      <a class="nav-link nav-internal" href="#">
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_modules/modules.html">
                         API reference
                       </a>
                     </li>
                 
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../_examples/examples.html">
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
                         Examples
                       </a>
                     </li>
@@ -237,15 +237,15 @@ document.write(`
   </p>
   <ul class="bd-navbar-elements navbar-nav">
     
-                    <li class="nav-item current active">
-                      <a class="nav-link nav-internal" href="#">
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_modules/modules.html">
                         API reference
                       </a>
                     </li>
                 
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../_examples/examples.html">
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
                         Examples
                       </a>
                     </li>
@@ -292,8 +292,12 @@ document.write(`
         <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="aisee.html">AISee Package</a></li>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="data_loader.html">Data-Loaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_class_classification.html">Multiclass Classification Problem</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="multi_label_classification.html">Multilabel Classification Problem</a></li>
 </ul>
 </div>
 </nav></div>
@@ -331,7 +335,7 @@ document.write(`
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">API reference</li>
+    <li class="breadcrumb-item active" aria-current="page">Examples</li>
   </ul>
 </nav>
 </div>
@@ -348,52 +352,34 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="api-reference">
-<span id="modules"></span><h1>API reference<a class="headerlink" href="#api-reference" title="Permalink to this heading">#</a></h1>
+  <section id="examples">
+<span id="id1"></span><h1>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">#</a></h1>
 <div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="aisee.html">AISee Package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="aisee.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="aisee.html#module-aisee.custom_datasets">aisee.custom_datasets module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="aisee.html#aisee.custom_datasets.DatasetFromDataFrame"><code class="docutils literal notranslate"><span class="pre">DatasetFromDataFrame</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="aisee.html#aisee.custom_datasets.DatasetFromDataFrame.check_dataframe_columns"><code class="docutils literal notranslate"><span class="pre">DatasetFromDataFrame.check_dataframe_columns()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="aisee.html#aisee.custom_datasets.DatasetFromDataFrame.generate_class_to_idx"><code class="docutils literal notranslate"><span class="pre">DatasetFromDataFrame.generate_class_to_idx()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_loader.html">Data-Loaders</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="data_loader.html#DatasetFromFolder">DatasetFromFolder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_loader.html#DatasetFromDataFrame">DatasetFromDataFrame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_loader.html#DatasetFromSingleImage">DatasetFromSingleImage</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="aisee.html#aisee.custom_datasets.DatasetFromFolder"><code class="docutils literal notranslate"><span class="pre">DatasetFromFolder</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="aisee.html#aisee.custom_datasets.DatasetFromNumpy"><code class="docutils literal notranslate"><span class="pre">DatasetFromNumpy</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="aisee.html#aisee.custom_datasets.DatasetFromSingleImage"><code class="docutils literal notranslate"><span class="pre">DatasetFromSingleImage</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_class_classification.html">Multiclass Classification Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_class_classification.html#Check-GPU">Check GPU</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="multi_class_classification.html#Get-the-data">Get the data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multi_class_classification.html#VisionClassifier-Instance">VisionClassifier Instance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multi_class_classification.html#Trainer-Instance">Trainer Instance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multi_class_classification.html#Train">Train</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multi_class_classification.html#Predict">Predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multi_class_classification.html#Load-model-with-custom-weights">Load model with custom weights</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="aisee.html#module-aisee.trainer">aisee.trainer module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="aisee.html#aisee.trainer.Trainer"><code class="docutils literal notranslate"><span class="pre">Trainer</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="aisee.html#aisee.trainer.Trainer.load_data_dict"><code class="docutils literal notranslate"><span class="pre">Trainer.load_data_dict()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="aisee.html#aisee.trainer.Trainer.train"><code class="docutils literal notranslate"><span class="pre">Trainer.train()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="aisee.html#module-aisee.utils">aisee.utils module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="aisee.html#aisee.utils.check_multilabel_df"><code class="docutils literal notranslate"><span class="pre">check_multilabel_df()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="aisee.html#aisee.utils.check_single_label_data"><code class="docutils literal notranslate"><span class="pre">check_single_label_data()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="aisee.html#aisee.utils.get_data_split"><code class="docutils literal notranslate"><span class="pre">get_data_split()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="aisee.html#aisee.utils.get_n_classes"><code class="docutils literal notranslate"><span class="pre">get_n_classes()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="aisee.html#aisee.utils.get_n_classes_multilabel"><code class="docutils literal notranslate"><span class="pre">get_n_classes_multilabel()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="aisee.html#aisee.utils.numpy_image_from_jpg"><code class="docutils literal notranslate"><span class="pre">numpy_image_from_jpg()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="aisee.html#module-aisee.vision_classifier">aisee.vision_classifier module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="aisee.html#aisee.vision_classifier.VisionClassifier"><code class="docutils literal notranslate"><span class="pre">VisionClassifier</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="aisee.html#aisee.vision_classifier.VisionClassifier.create_dataloader"><code class="docutils literal notranslate"><span class="pre">VisionClassifier.create_dataloader()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="aisee.html#aisee.vision_classifier.VisionClassifier.create_default_transform"><code class="docutils literal notranslate"><span class="pre">VisionClassifier.create_default_transform()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="aisee.html#aisee.vision_classifier.VisionClassifier.evaluate"><code class="docutils literal notranslate"><span class="pre">VisionClassifier.evaluate()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="aisee.html#aisee.vision_classifier.VisionClassifier.predict"><code class="docutils literal notranslate"><span class="pre">VisionClassifier.predict()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="aisee.html#aisee.vision_classifier.VisionClassifier.predict_loop"><code class="docutils literal notranslate"><span class="pre">VisionClassifier.predict_loop()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="aisee.html#module-aisee">Module contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_label_classification.html">Multilabel Classification Problem</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="multi_label_classification.html#Get-the-data">Get the data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multi_label_classification.html#VisionClassifier-Instance">VisionClassifier Instance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multi_label_classification.html#Trainer-Instance">Trainer Instance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multi_label_classification.html#Train">Train</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multi_label_classification.html#Predict">Predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multi_label_classification.html#Load-model-with-custom-weights">Load model with custom weights</a></li>
 </ul>
 </li>
 </ul>
@@ -412,20 +398,20 @@ document.write(`
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../index.html"
+       href="../_modules/aisee.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Welcome to AISee’s documentation!</p>
+        <p class="prev-next-title">AISee Package</p>
       </div>
     </a>
     <a class="right-next"
-       href="aisee.html"
+       href="data_loader.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">AISee Package</p>
+        <p class="prev-next-title">Data-Loaders</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -443,7 +429,7 @@ document.write(`
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="../_sources/_modules/modules.rst.txt">
+    <a href="../_sources/_examples/examples.rst.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>

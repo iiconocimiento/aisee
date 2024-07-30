@@ -1,0 +1,1195 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Multilabel Classification Problem &#8212; aisee  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/design-tabs.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_examples/multi_label_classification';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Contribute to AISee" href="../_development/development.html" />
+    <link rel="prev" title="Multiclass Classification Problem" href="multi_class_classification.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/aisee-logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/aisee-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_modules/modules.html">
+                        API reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="examples.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_development/development.html">
+                        Contribute to AISee
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_getting_started/getting_started.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_modules/modules.html">
+                        API reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="examples.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_development/development.html">
+                        Contribute to AISee
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_getting_started/getting_started.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="data_loader.html">Data-Loaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_class_classification.html">Multiclass Classification Problem</a></li>
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Multilabel Classification Problem</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="examples.html" class="nav-link">Examples</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Multilabel Classification Problem</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="Multilabel-Classification-Problem">
+<h1>Multilabel Classification Problem<a class="headerlink" href="#Multilabel-Classification-Problem" title="Permalink to this heading">#</a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import os
+import zipfile
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import requests
+from aisee import DatasetFromDataFrame, Trainer, VisionClassifier
+from PIL import Image
+</pre></div>
+</div>
+</div>
+<section id="Get-the-data">
+<h2>Get the data<a class="headerlink" href="#Get-the-data" title="Permalink to this heading">#</a></h2>
+<p>In this section of code, we are <strong>downloading and extracting a dataset of poster images</strong> from a .zip file hosted on <strong>Hugging Face</strong>.</p>
+<p>First, the current working directory of the notebook is obtained and stored in the variable <code class="docutils literal notranslate"><span class="pre">notebook_dir</span></code>.</p>
+<p>Next, the URL of the .zip file is defined and stored in the <code class="docutils literal notranslate"><span class="pre">url</span></code> variable.</p>
+<p>The dataset is then downloaded using the <code class="docutils literal notranslate"><span class="pre">requests</span></code> library, and the content of the response is written to a file named <code class="docutils literal notranslate"><span class="pre">data.zip</span></code> in the current working directory.</p>
+<p>Finally, the <code class="docutils literal notranslate"><span class="pre">zipfile</span></code> library is utilized to extract the contents of the downloaded .zip file into the current working directory, after which the .zip file is closed.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Get the current working directory of the notebook
+notebook_dir = os.getcwd()
+
+# Define the URL to download the dataset
+url = &#39;https://huggingface.co/IIC/aisee_resources/resolve/main/poster.zip&#39;
+
+response = requests.get(url)
+
+# Download the dataset from the URL and save it as &quot;data.zip&quot; in the current working directory
+with open(&#39;data.zip&#39;, &#39;wb&#39;) as file:
+    file.write(response.content)
+
+# Extract the contents of the downloaded zip file into the current working directory
+archivo_zip = zipfile.ZipFile(os.path.join(notebook_dir, &#39;data.zip&#39;))
+archivo_zip.extractall(os.path.join(notebook_dir))
+archivo_zip.close()
+</pre></div>
+</div>
+</div>
+<p>Now we have a folder called <strong>multi label daset</strong> with a subfolder with all the images and a .csv file with the label information.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#Load dataset
+data = pd.read_csv(&#39;./multi_label_dataset/train.csv&#39;)
+data.head()
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Id</th>
+      <th>Genre</th>
+      <th>Action</th>
+      <th>Adventure</th>
+      <th>Animation</th>
+      <th>Biography</th>
+      <th>Comedy</th>
+      <th>Crime</th>
+      <th>Documentary</th>
+      <th>Drama</th>
+      <th>...</th>
+      <th>N/A</th>
+      <th>News</th>
+      <th>Reality-TV</th>
+      <th>Romance</th>
+      <th>Sci-Fi</th>
+      <th>Short</th>
+      <th>Sport</th>
+      <th>Thriller</th>
+      <th>War</th>
+      <th>Western</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>tt0086425</td>
+      <td>['Comedy', 'Drama']</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>tt0085549</td>
+      <td>['Drama', 'Romance', 'Music']</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>tt0086465</td>
+      <td>['Comedy']</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>tt0086567</td>
+      <td>['Sci-Fi', 'Thriller']</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>tt0086034</td>
+      <td>['Action', 'Adventure', 'Thriller']</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 27 columns</p>
+</div></div>
+</div>
+<section id="Trasform-to-AISee-dataframe-format:">
+<h3>Trasform to AISee dataframe format:<a class="headerlink" href="#Trasform-to-AISee-dataframe-format:" title="Permalink to this heading">#</a></h3>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>         path           |   car   |   motorbike   |   bus
+-------------------------------------------------------------
+&quot;sample/vehicles1.png&quot;  |    1    |       1       |    0
+&quot;sample/vehicles2.png&quot;  |    0    |       0       |    1
+&quot;sample/vehicles3.png&quot;  |    1    |       0       |    1
+&quot;sample/vehicles4.png&quot;  |    1    |       0       |    0
+</pre></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#Create path column
+data[&#39;path&#39;] = [&#39;multi_label_dataset/Images/&#39;+str(id)+&#39;.jpg&#39; for id in data.Id]
+
+#Drop useless columns
+data.drop(columns =[&#39;Id&#39;, &#39;Genre&#39;], inplace = True)
+
+#Create fold colum
+train_frac, val_frac, test_frac = 0.7, 0.1, 0.2
+train_count = int(len(data) * train_frac)
+val_count = int(len(data) * val_frac)
+labels = [&#39;train&#39;] * train_count + [&#39;val&#39;] * val_count + [&#39;test&#39;] * (len(data) - train_count - val_count)
+
+#Random the images fold
+np.random.seed(42)
+np.random.shuffle(labels)
+data[&#39;fold&#39;] = labels
+
+
+data.head()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Action</th>
+      <th>Adventure</th>
+      <th>Animation</th>
+      <th>Biography</th>
+      <th>Comedy</th>
+      <th>Crime</th>
+      <th>Documentary</th>
+      <th>Drama</th>
+      <th>Family</th>
+      <th>Fantasy</th>
+      <th>...</th>
+      <th>Reality-TV</th>
+      <th>Romance</th>
+      <th>Sci-Fi</th>
+      <th>Short</th>
+      <th>Sport</th>
+      <th>Thriller</th>
+      <th>War</th>
+      <th>Western</th>
+      <th>path</th>
+      <th>fold</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>multi_label_dataset/Images/tt0086425.jpg</td>
+      <td>train</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>multi_label_dataset/Images/tt0085549.jpg</td>
+      <td>train</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>multi_label_dataset/Images/tt0086465.jpg</td>
+      <td>train</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>multi_label_dataset/Images/tt0086567.jpg</td>
+      <td>test</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>multi_label_dataset/Images/tt0086034.jpg</td>
+      <td>test</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 27 columns</p>
+</div></div>
+</div>
+<p>The task that will be performed with this data is to train a model to classify multiple label images of posters. Let’s see some images:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#Create the dataset
+train_df = DatasetFromDataFrame(data)
+
+#Plot images
+f,ax = plt.subplots(3,4, figsize=(15, 6))
+f.subplots_adjust(wspace=0.7, hspace=0.5)
+for i, (img, label, path) in enumerate(train_df):
+    if i &gt;= 12:
+        break
+    ax[i//4,i%4].imshow(Image.open(path))
+    ax[i//4,i%4].axis(&#39;off&#39;)
+plt.show()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/_examples_multi_label_classification_10_0.png" src="../_images/_examples_multi_label_classification_10_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="VisionClassifier-Instance">
+<h2>VisionClassifier Instance<a class="headerlink" href="#VisionClassifier-Instance" title="Permalink to this heading">#</a></h2>
+<p>These are all parameters with their respective explanations:</p>
+<ul>
+<li><p><strong>model_name</strong>: (<code class="docutils literal notranslate"><span class="pre">str</span></code>) Name of the model that will be obtained from the timm library.</p></li>
+<li><p><strong>num_classes</strong>: (<code class="docutils literal notranslate"><span class="pre">int</span></code>) Number of classes in the problem. The number of classes will be the number of outputs of the neural net.</p></li>
+<li><p><strong>class_to_idx</strong>: (dict[<code class="docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">int</span></code>], default=None) Equivalence between the label and the index of the neural net output. This parameter is equivalent to label2id of the transformers library.</p></li>
+<li><p><strong>weights_path</strong>: (<code class="docutils literal notranslate"><span class="pre">str</span></code>, default=None) Directory where network weights are located. If value is different from None, pretrained weigths from the timm library will be ignored.</p></li>
+<li><p><strong>learning_method</strong>: (<code class="docutils literal notranslate"><span class="pre">str</span></code>, default=”freezed”) Possible values: from_scratch, freezed, and unfreezed:</p>
+<ul class="simple">
+<li><p><strong>from_scratch</strong>: The model will be trained from scratch, without using any pre-trained weights contained in the timm library.</p></li>
+<li><p><strong>freezed</strong>: The model will be trained using pre-trained weights from the timm library. For this training, all layers of the network will be frozen (weights will not be updated) except for the last - layer, and the extra layer if it is added with the extra_layer parameter.</p></li>
+<li><p><strong>unfreezed</strong>: The model will be trained using pre-trained weights from the timm library. In this case, all layers of the network will be updated without exception.</p></li>
+</ul>
+<p>Note that if custom weights are passed in the custom_weights parameter, the network weights will be those, and the pre-trained weights from the timm library will be ignored.</p>
+</li>
+<li><p><strong>extra_layer</strong>: (<code class="docutils literal notranslate"><span class="pre">int</span></code>, default=None) If value is different from None, a linear layer is added before the last layer with extra_layer number of neurons. If None, this does nothing.</p></li>
+<li><p><strong>dropout</strong>: (<code class="docutils literal notranslate"><span class="pre">float</span></code>, default=None) If dropout has a value different from None, dropout layer is added before the last layer. Otherwise, this does nothing.</p></li>
+<li><p><strong>task</strong>: (<code class="docutils literal notranslate"><span class="pre">str</span></code>, default=”single_label”) Task to be resolved. Possible values: “single_label”, “multi_label”.</p></li>
+<li><p><strong>device</strong>: (<code class="docutils literal notranslate"><span class="pre">str</span></code>, default=”cpu”) Device where the neural network will be running. Example: “cuda:1”, “cpu”.</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>model_name = &#39;densenet121&#39;
+num_classes = 25
+
+
+classifier = VisionClassifier(model_name, num_classes, task=&#39;multi_label&#39;, device=&#39;cuda:0&#39;)
+<br/></pre></div>
+</div>
+</div>
+</section>
+<section id="Trainer-Instance">
+<h2>Trainer Instance<a class="headerlink" href="#Trainer-Instance" title="Permalink to this heading">#</a></h2>
+<p>These are all parameters with their respective explanations:</p>
+<ul class="simple">
+<li><p><strong>base_model</strong> (<code class="docutils literal notranslate"><span class="pre">VisionClassifier</span></code>): An instance of VisionClassifier.</p></li>
+<li><p><strong>data</strong> (<code class="docutils literal notranslate"><span class="pre">Union[pd.DataFrame,</span> <span class="pre">str]</span></code>): A DataFrame or a string which contains the training data:</p>
+<ul>
+<li><p>If it is a dataframe:</p>
+<ul>
+<li><p>If it is a multiclass problem: the dataframe must contain a <code class="docutils literal notranslate"><span class="pre">path</span></code> column with the full path of the image, a <code class="docutils literal notranslate"><span class="pre">label</span></code> column with the label assigned to the image and a <code class="docutils literal notranslate"><span class="pre">fold</span></code> column that indicates the ‘train’ and ‘val’ samples.</p></li>
+<li><p>If it is a multilabel problem: the dataframe must contain a “path” column with the full path of the image, one column for each class in the problem and a <code class="docutils literal notranslate"><span class="pre">fold</span></code> column . The classes that belong to that image will be indicated with a “1” and those that do not with a “0”.</p></li>
+</ul>
+</li>
+<li><p>If it is a string, it must be a directory which should contain subfolders with training (‘train’) and validation (‘val’) samples and second subfolders with labels.</p></li>
+</ul>
+</li>
+<li><p><strong>output_dir</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>, default=None): File where the weights of the neural network will be saved. If None output_dir = ‘weights_model_name_time.pt’</p></li>
+<li><p><strong>lr</strong> (<code class="docutils literal notranslate"><span class="pre">float</span></code>, default=0.001): Learning rate used by the torch optimizer.</p></li>
+<li><p><strong>batch_size</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, default=16): Number of training samples.</p></li>
+<li><p><strong>num_epochs</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, default=5): Number of training epochs.</p></li>
+<li><p><strong>checkpointing_metric</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>, default=”loss”): Metric with which the best model will be saved. Possible values: ‘loss’, ‘acc’, ‘f1’. F1 is calculated as ‘macro-averaged F1 score’.</p></li>
+<li><p><strong>verbose</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, default=3): Controls the verbosity: the higher, the more messages.</p></li>
+<li><p><strong>shuffle</strong> (<code class="docutils literal notranslate"><span class="pre">bool</span></code>, default=True): Whether or not to shuffle the data before splitting.</p></li>
+<li><p><strong>num_workers</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, default=2): How many subprocesses to use for data loading. 0 means that the data will be loaded in the main process.</p></li>
+<li><p><strong>dict_data_transforms</strong> (<code class="docutils literal notranslate"><span class="pre">dict</span></code>, default=None): Dict with ‘train’ and ‘val’ image transformations. A function/transform that takes in an PIL image and returns a transformed version. If None for train: resize, horizontal flip and normalize, val: resize and normalize.</p></li>
+<li><p><strong>criterion</strong> (<code class="docutils literal notranslate"><span class="pre">Type[Loss]</span></code>, default=CrossEntropyLoss for single_label, default=BCELoss for multi_label): A loss function from pytorch. This criterion computes loss between input logits and target.</p></li>
+<li><p><strong>optimizer</strong> (<code class="docutils literal notranslate"><span class="pre">Type[Optimizer]</span></code>, default=None): Add an optimizer from pytorch. If None Adam will be used.</p></li>
+<li><p><strong>optimer_kwargs</strong> (<code class="docutils literal notranslate"><span class="pre">dict</span></code>, default=None): Optimizer parameters.</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>trainer = Trainer(output_dir=&quot;test_trainer.pt&quot;, base_model=classifier, data=data, batch_size=16, num_epochs=10)
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Train">
+<h2>Train<a class="headerlink" href="#Train" title="Permalink to this heading">#</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>trainer.train()
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Predict">
+<h2>Predict<a class="headerlink" href="#Predict" title="Permalink to this heading">#</a></h2>
+<section id="Parameters">
+<h3>Parameters<a class="headerlink" href="#Parameters" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code> : Union[pd.DataFrame, str]</p>
+<ul>
+<li><p>A pandas DataFrame or a string that represents a path to an image or a directory of images.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">num_workers</span></code> : int, default=2</p>
+<ul>
+<li><p>The number of subprocesses to use for data loading.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data_transform</span></code> : transforms.Compose, default=None</p>
+<ul>
+<li><p>A torchvision.transforms.Compose object that represents the data transformation to be applied before inference.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">batch_size</span></code> : int, default=8</p>
+<ul>
+<li><p>The batch size to be used during inference.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="Returns">
+<h3>Returns<a class="headerlink" href="#Returns" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">List[Mapping[str,</span> <span class="pre">T]]</span></code></p>
+<ul>
+<li><p>A list of dictionaries, where each dictionary represents the prediction results for an image. Each dictionary contains the following keys:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;image_path&quot;</span></code>: The path to the image.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;probabilities&quot;</span></code>: A dictionary containing the probability values for each class assigned to the image.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;prediction&quot;</span></code>: The model’s prediction for the image. It can be a single class or a list of classes if it is a multi-label problem.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;real_label&quot;</span></code>: The true label for the image. This value is only provided if a dataframe with true labels has been provided.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<section id="Predict-test-folder">
+<h4>Predict test folder<a class="headerlink" href="#Predict-test-folder" title="Permalink to this heading">#</a></h4>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pred = trainer.base_model.predict(data)
+print(pred[4])
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;image_path&#39;: &#39;multi_label_dataset/Images/tt0086034.jpg&#39;, &#39;probabilities&#39;: array([7.4096575e-02, 1.2736176e-01, 1.7442755e-02, 1.4218902e-02,
+       9.5770729e-01, 9.1740392e-02, 4.2384425e-03, 4.1830069e-01,
+       1.1799791e-01, 1.0599017e-01, 1.1286168e-02, 6.6832593e-03,
+       2.8641434e-02, 9.8107811e-03, 1.2242676e-02, 3.9799782e-03,
+       1.8027304e-03, 9.9665287e-04, 4.2543465e-01, 2.4807902e-02,
+       5.4995442e-04, 1.0892054e-02, 2.2074701e-02, 3.6154430e-02,
+       1.8302690e-02], dtype=float32), &#39;prediction&#39;: array([0., 0., 0., 0., 1., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+       0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32), &#39;real_label&#39;: array([1., 1., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+       0., 0., 0., 0., 0., 1., 0., 0.], dtype=float32)}
+</pre></div></div>
+</div>
+</section>
+<section id="Predict-single-image">
+<h4>Predict single image<a class="headerlink" href="#Predict-single-image" title="Permalink to this heading">#</a></h4>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pred_single = trainer.base_model.predict(data[data[&#39;fold&#39;] == &#39;test&#39;].iloc[0][&#39;path&#39;])
+print(pred_single)
+plt.imshow(Image.open(data[data[&#39;fold&#39;] == &#39;test&#39;].iloc[0][&#39;path&#39;]))
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[{&#39;image_path&#39;: &#39;multi_label_dataset/Images/tt0086567.jpg&#39;, &#39;probabilities&#39;: array([3.62000793e-01, 2.40682244e-01, 2.21903808e-03, 4.39156108e-02,
+       1.19527005e-01, 2.16826454e-01, 4.16829437e-03, 7.17785835e-01,
+       1.23200985e-02, 8.62300843e-02, 2.15683063e-03, 2.89643407e-01,
+       1.45460134e-02, 7.63219222e-03, 2.47520134e-01, 1.59922522e-03,
+       7.10286840e-04, 1.81871510e-04, 3.38790789e-02, 2.09156170e-01,
+       5.55523613e-04, 2.77977809e-02, 4.03123409e-01, 7.97415152e-02,
+       1.76965864e-03], dtype=float32), &#39;prediction&#39;: array([0., 0., 0., 0., 0., 0., 0., 1., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+       0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32), &#39;real_label&#39;: array(nan)}]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.image.AxesImage at 0x7f6a41d66880&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/_examples_multi_label_classification_23_2.png" src="../_images/_examples_multi_label_classification_23_2.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Obtain the index_to_class dict
+idx_to_class = {v: k for k, v in trainer.base_model.class_to_idx.items()}
+
+# Get the real label name
+labels=[]
+for i, pred in enumerate(pred_single[0][&#39;prediction&#39;]):
+    if pred == 1:
+        labels.append(idx_to_class[i])
+
+print(f&#39;The labels are: {labels}&#39;)
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The labels are: [&#39;Drama&#39;]
+</pre></div></div>
+</div>
+</section>
+</section>
+</section>
+<section id="Load-model-with-custom-weights">
+<h2>Load model with custom weights<a class="headerlink" href="#Load-model-with-custom-weights" title="Permalink to this heading">#</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span>vc = VisionClassifier(model_name=model_name, num_classes = 25, weights_path = &#39;test_trainer.pt&#39;, device = &#39;cuda:0&#39;, task = &#39;multi_label&#39;)
+<br/></pre></div>
+</div>
+</div>
+<p>Now we can use this model to predict a folder with images, a dataset or a single image.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="multi_class_classification.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Multiclass Classification Problem</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../_development/development.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Contribute to AISee</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Get-the-data">Get the data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Trasform-to-AISee-dataframe-format:">Trasform to AISee dataframe format:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#VisionClassifier-Instance">VisionClassifier Instance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Trainer-Instance">Trainer Instance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Train">Train</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Predict">Predict</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Parameters">Parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Returns">Returns</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#Predict-test-folder">Predict test folder</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#Predict-single-image">Predict single image</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Load-model-with-custom-weights">Load model with custom weights</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="../_sources/_examples/multi_label_classification.ipynb.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2023, Instituto de Ingeniería del Conocimiento.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -7,8 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Index &#8212; aisee  documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Search - aisee  documentation</title>
   
   
   
@@ -40,9 +39,12 @@
     <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/design-tabs.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'genindex';</script>
-    <link rel="index" title="Index" href="#" />
-    <link rel="search" title="Search" href="search.html" />
+    <script>DOCUMENTATION_OPTIONS.pagename = 'search';</script>
+  <script src="_static/searchtools.js"></script>
+  <script src="_static/language_data.js"></script>
+  <script src="searchindex.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="#" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -70,7 +72,7 @@
     <div class="search-button__overlay"></div>
     <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
-      action="search.html"
+      action="#"
       method="get">
   <i class="fa-solid fa-magnifying-glass"></i>
   <input type="search"
@@ -299,202 +301,43 @@ document.write(`
               <div class="bd-header-article"></div>
               
               
-              
-                
-<div id="searchbox"></div>
-                <article class="bd-article" role="main">
-                  
+  <div class="bd-search-container">
+    <h1>Search</h1>
+    <noscript>
+      <div class="admonition error">
+        <p class="admonition-title">Error</p>
+        <p>Please activate JavaScript to enable the search functionality.</p>
+      </div>
+    </noscript>
+    
+<form class="bd-search d-flex align-items-center"
+      action="#"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    <div id="search-results"></div>
+  </div>
+  <script>
+    // Activate the search field on page load
+    let searchInput = document.querySelector("form.bd-search input");
+    if (searchInput) {
+        searchInput.focus();
+        searchInput.select();
+        console.log("[PST]: Set focus on search field.");
+    }
+  </script>
 
-<h1 id="index">Index</h1>
-
-<div class="genindex-jumpbox">
- <a href="#A"><strong>A</strong></a>
- | <a href="#C"><strong>C</strong></a>
- | <a href="#D"><strong>D</strong></a>
- | <a href="#E"><strong>E</strong></a>
- | <a href="#G"><strong>G</strong></a>
- | <a href="#L"><strong>L</strong></a>
- | <a href="#M"><strong>M</strong></a>
- | <a href="#N"><strong>N</strong></a>
- | <a href="#P"><strong>P</strong></a>
- | <a href="#T"><strong>T</strong></a>
- | <a href="#V"><strong>V</strong></a>
- 
-</div>
-<h2 id="A">A</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    aisee
-
-      <ul>
-        <li><a href="_modules/aisee.html#module-aisee">module</a>
-</li>
-      </ul></li>
-      <li>
-    aisee.custom_datasets
-
-      <ul>
-        <li><a href="_modules/aisee.html#module-aisee.custom_datasets">module</a>
-</li>
-      </ul></li>
-      <li>
-    aisee.trainer
-
-      <ul>
-        <li><a href="_modules/aisee.html#module-aisee.trainer">module</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    aisee.utils
-
-      <ul>
-        <li><a href="_modules/aisee.html#module-aisee.utils">module</a>
-</li>
-      </ul></li>
-      <li>
-    aisee.vision_classifier
-
-      <ul>
-        <li><a href="_modules/aisee.html#module-aisee.vision_classifier">module</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="C">C</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_modules/aisee.html#aisee.custom_datasets.DatasetFromDataFrame.check_dataframe_columns">check_dataframe_columns() (aisee.custom_datasets.DatasetFromDataFrame method)</a>
-</li>
-      <li><a href="_modules/aisee.html#aisee.utils.check_multilabel_df">check_multilabel_df() (in module aisee.utils)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_modules/aisee.html#aisee.utils.check_single_label_data">check_single_label_data() (in module aisee.utils)</a>
-</li>
-      <li><a href="_modules/aisee.html#aisee.vision_classifier.VisionClassifier.create_dataloader">create_dataloader() (aisee.vision_classifier.VisionClassifier method)</a>
-</li>
-      <li><a href="_modules/aisee.html#aisee.vision_classifier.VisionClassifier.create_default_transform">create_default_transform() (aisee.vision_classifier.VisionClassifier method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="D">D</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_modules/aisee.html#aisee.custom_datasets.DatasetFromDataFrame">DatasetFromDataFrame (class in aisee.custom_datasets)</a>
-</li>
-      <li><a href="_modules/aisee.html#aisee.custom_datasets.DatasetFromFolder">DatasetFromFolder (class in aisee.custom_datasets)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_modules/aisee.html#aisee.custom_datasets.DatasetFromNumpy">DatasetFromNumpy (class in aisee.custom_datasets)</a>
-</li>
-      <li><a href="_modules/aisee.html#aisee.custom_datasets.DatasetFromSingleImage">DatasetFromSingleImage (class in aisee.custom_datasets)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="E">E</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_modules/aisee.html#aisee.vision_classifier.VisionClassifier.evaluate">evaluate() (aisee.vision_classifier.VisionClassifier method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="G">G</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_modules/aisee.html#aisee.custom_datasets.DatasetFromDataFrame.generate_class_to_idx">generate_class_to_idx() (aisee.custom_datasets.DatasetFromDataFrame method)</a>
-</li>
-      <li><a href="_modules/aisee.html#aisee.utils.get_data_split">get_data_split() (in module aisee.utils)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_modules/aisee.html#aisee.utils.get_n_classes">get_n_classes() (in module aisee.utils)</a>
-</li>
-      <li><a href="_modules/aisee.html#aisee.utils.get_n_classes_multilabel">get_n_classes_multilabel() (in module aisee.utils)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="L">L</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_modules/aisee.html#aisee.trainer.Trainer.load_data_dict">load_data_dict() (aisee.trainer.Trainer method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="M">M</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    module
-
-      <ul>
-        <li><a href="_modules/aisee.html#module-aisee">aisee</a>
-</li>
-        <li><a href="_modules/aisee.html#module-aisee.custom_datasets">aisee.custom_datasets</a>
-</li>
-        <li><a href="_modules/aisee.html#module-aisee.trainer">aisee.trainer</a>
-</li>
-        <li><a href="_modules/aisee.html#module-aisee.utils">aisee.utils</a>
-</li>
-        <li><a href="_modules/aisee.html#module-aisee.vision_classifier">aisee.vision_classifier</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="N">N</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_modules/aisee.html#aisee.utils.numpy_image_from_jpg">numpy_image_from_jpg() (in module aisee.utils)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="P">P</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_modules/aisee.html#aisee.vision_classifier.VisionClassifier.predict">predict() (aisee.vision_classifier.VisionClassifier method)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_modules/aisee.html#aisee.vision_classifier.VisionClassifier.predict_loop">predict_loop() (aisee.vision_classifier.VisionClassifier method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="T">T</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_modules/aisee.html#aisee.trainer.Trainer.train">train() (aisee.trainer.Trainer method)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_modules/aisee.html#aisee.trainer.Trainer">Trainer (class in aisee.trainer)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="V">V</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_modules/aisee.html#aisee.vision_classifier.VisionClassifier">VisionClassifier (class in aisee.vision_classifier)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-
-
-                </article>
-              
               
               
                 <footer class="bd-footer-article">
