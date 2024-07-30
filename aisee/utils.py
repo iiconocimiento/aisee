@@ -182,7 +182,6 @@ def check_multilabel_df(df):
                 f"Column '{col}' has values less than 0, values must be between 0 and 1.",
             )
 
-
 def numpy_image_from_jpg(
         path: str,
         rgb: bool = True,
